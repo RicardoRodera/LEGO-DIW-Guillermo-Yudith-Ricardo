@@ -1,0 +1,42 @@
+@font-face {
+    font-family: 'Lego';
+    src: url('../Tipografia/Legothick.ttf');
+    
+    
+  }
+
+body, div {
+    background-color: transparent !important;
+    font-family: 'Lego', sans-serif;
+}
+
+#rojo{
+    background-image: url("../Imagenes/monton\ rojo.webp");
+    background-size: cover;
+    
+}
+
+#azul{
+    background-image: url("../Imagenes/montonazul.jpg");
+    
+    background-size: cover;
+}
+
+#verde{
+    background-image: url("../Imagenes/montonVerde.jpg");
+    background-size: cover;
+}
+
+#amarillo{
+    background-image: url("../Imagenes/montonamarillo.jpg");
+    background-size: cover;
+}
+
+button{
+    border-width: 3px;
+    border-color: white;
+}
+
+button:hover{
+    border-color: black;
+}
