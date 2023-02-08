@@ -1,0 +1,8 @@
+body .card:hover {
+  background-color: blue;
+  cursor: pointer;
+}
+body .contenedorImagen img {
+  width: 100%;
+  height: 16em;
+}
