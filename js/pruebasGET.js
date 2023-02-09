@@ -49,8 +49,4 @@ function getToken() {
 
 
 console.log(getToken());
-<<<<<<< HEAD
 //getSets("frozen");
-=======
-getSets("frozen");
->>>>>>> 88722325921ec6a2fead1497e310a4d55692fc0b
