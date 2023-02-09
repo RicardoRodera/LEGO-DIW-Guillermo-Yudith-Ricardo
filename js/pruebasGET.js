@@ -27,15 +27,14 @@ function getSets(busqueda = "") {
 
 function getToken() {
     const opciones = {
-        method: 'get',
-        header: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept': 'application/json',
-            'Authorization': key
+        method: 'post',
+        body: "username=apilegoJGR&password=password",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Authorization': "key "+  key
         },
-        //body: 'username=apilegoJGR&password=password'
     }
-    fetch("https://rebrickable.com/api/v3/users/_token/?username=apilegoJGR&password=password", opciones)
+    fetch("https://rebrickable.com/api/v3/users/_token/", opciones)
         .then(function (respuesta) {
             return respuesta.json()
         })
