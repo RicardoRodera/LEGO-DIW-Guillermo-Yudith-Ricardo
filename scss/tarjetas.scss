@@ -1,9 +1,11 @@
 body { 
     
-
+    .container{
+        background-image: url("../Imagenes/fondoLego.jpg");
+    }
 
     .card:hover {
-        background-color: blue;
+        background-color: black;
         cursor: pointer;
 
     }
@@ -15,6 +17,23 @@ body {
            
         }
         
+    }
+
+    .azul{
+        //background-image: url("../Imagenes/montonazul.jpg");
+        background-color: rgb(0, 87, 168);
+    }
+
+    .rojo{
+        background-color: rgb(	222, 0, 13);
+    }
+
+    .verde{
+        background-color: rgb(0, 150, 56);
+    }
+
+    .amarillo{
+        background-color: rgb(254, 196, 0);
     }
 
    
