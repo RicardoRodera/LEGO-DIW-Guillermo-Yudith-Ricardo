@@ -17,13 +17,13 @@ function cargarPagina(){
 
 function mostrarApi(){
   //https://rebrickable.com/api/v3/lego/minifigs/?key=${key}&limit=${tamPagina}&offset=${(paginaActual-1)*tamPagina}
-  fetch(`https://rebrickable.com/api/v3/lego/minifigs/?key=${key}&limit=${tamPagina}&offset=${(paginaActual-1)*tamPagina}`)
+  fetch(`https://rebrickable.com/api/v3/lego/minifigs/?key=${key}&limit=16&offset=${(paginaActual-1)*tamPagina}`)
       .then(response => response.json())
       .then(data => {
         totalFiguras = data.count;
         var figuras = data.results;
         console.log(figuras);
-      data.results.forEach(figuras => {
+      data.results.slice((paginaActual-1)*tamPagina, paginaActual*tamPagina).forEach(figuras => {
        
         let tarjeta = `
           <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center pb-5 pt-5">
@@ -82,9 +82,9 @@ function actualizaPaginacion(data){
   document.querySelector("#numeroPagina").innerHTML = paginaActual;
   document.querySelector("#totalPaginas").innerHTML = Math.ceil(data.count/tamPagina);
 
-  if(paginaActual==1)
+  if(paginaActual==1){
     document.querySelector("#anterior").classList.add("disabled");
-  else{
+  }else{
     if(paginaActual==Math.ceil(data.count/tamPagina)){
       document.querySelector("#siguiente").classList.add("disabled");
     }else{

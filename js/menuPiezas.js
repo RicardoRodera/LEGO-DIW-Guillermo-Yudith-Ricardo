@@ -22,7 +22,7 @@ function mostrarApi(){
       .then(data => {
         totalFiguras = data.count;
         var figuras = data.results;
-        console.log(figuras);
+        //console.log(figuras);
       data.results.forEach(piezas => {
        
         let tarjeta = `
@@ -77,8 +77,8 @@ function comprobarImagen(valor){
 }
 
 function actualizaPaginacion(data){
-  document.querySelector("#numeroPagina").innerHTML = paginaActual;
-  document.querySelector("#totalPaginas").innerHTML = Math.ceil(data.count/tamPagina);
+  
+  
 
   if(paginaActual==1)
     document.querySelector("#anterior").classList.add("disabled");
