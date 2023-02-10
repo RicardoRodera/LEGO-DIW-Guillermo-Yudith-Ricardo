@@ -4,8 +4,9 @@ const key = "07880df945ae318d79416922e15e7c11";
 let colores = ["rojo", "azul", "verde", "amarillo"];
 let color=0;
 
-let tamPagina=16;
-let paginaActual=1;
+var tamPagina=16;
+var paginaActual=1;
+var totalFiguras = 0;
 
 function cargarPagina(){
   mostrarApi();
@@ -15,13 +16,15 @@ function cargarPagina(){
 
 
 function mostrarApi(){
-   
+  //https://rebrickable.com/api/v3/lego/minifigs/?key=${key}&limit=${tamPagina}&offset=${(paginaActual-1)*tamPagina}
   fetch(`https://rebrickable.com/api/v3/lego/minifigs/?key=${key}&limit=${tamPagina}&offset=${(paginaActual-1)*tamPagina}`)
       .then(response => response.json())
       .then(data => {
-
+        totalFiguras = data.count;
+        var figuras = data.results;
+        console.log(figuras);
       data.results.forEach(figuras => {
-        
+       
         let tarjeta = `
           <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center pb-5 pt-5">
             <div class="card ${colores[color]} border border-light rounded" style="width: 18em;">
@@ -82,9 +85,9 @@ function actualizaPaginacion(data){
   if(paginaActual==1)
     document.querySelector("#anterior").classList.add("disabled");
   else{
-    if(paginaActual==Math.ceil(data.count/tamPagina))
+    if(paginaActual==Math.ceil(data.count/tamPagina)){
       document.querySelector("#siguiente").classList.add("disabled");
-    else{
+    }else{
       document.querySelector("#anterior").classList.remove("disabled");
       document.querySelector("#siguiente").classList.remove("disabled");
     }
