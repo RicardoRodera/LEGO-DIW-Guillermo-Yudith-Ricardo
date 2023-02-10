@@ -4,10 +4,10 @@ const temas = new Map();
 
 function init() {
     //document.getElementById("btnBuscar").addEventListener("click", buscar);
-    //document.getElementById("tema").addEventListener("input", autocompletar);
+    document.getElementById("tema").addEventListener("input", autocompletar);
     getTemas();
     console.log(temas);
-    
+
 
 }
 
@@ -35,7 +35,7 @@ function buscar() {
     //let piezas = document.querySelector("#piezas").value;
     //let tema = document.querySelector("#tema").value;
 
-    fetch("https://rebrickable.com/api/v3/lego/sets/?search=" + busqueda + "&page_size=99999&theme_id=" + tema + "&min_year=" + anio + "&max_year=" + anio +  "&key=" + key, { method: 'get' })
+    fetch("https://rebrickable.com/api/v3/lego/sets/?search=" + busqueda + "&page_size=99999&theme_id=" + tema + "&min_year=" + anio + "&max_year=" + anio + "&key=" + key, { method: 'get' })
         .then(function (respuesta) {
             return respuesta.json()
         })
@@ -53,7 +53,35 @@ function buscar() {
         })
 }
 
-function autocompletar() {
+function autocompletar(e) {
+    cierraSugerencias();
+
+    let valor = this.value;
+    if (!valor)
+        return false;
+
+    /*Creamos un div que contendrá las sugerencias:*/
+    let lista = document.createElement("datalist");
+    lista.setAttribute("id", "lista-autocompleccion");
+    this.setAttribute("list", "lista-autocompleccion")
+
+    this.parentNode.appendChild(lista);
+    console.log(temas);
+    temas.forEach((value, key) => {
+        /* Crea un option para cada pais que comienza igual que el texto que he introducido */
+        if (tema.value.toLowerCase().startsWith(valor.toLowerCase())) {
+            let sugerencia = document.createElement("option");
+            sugerencia.textContent = key;
+            sugerencia.value = value;
+            lista.appendChild(sugerencia);
+        }
+    });
+}
+
+function cierraSugerencias() {
+    var lista = document.querySelector("#lista-autocompleccion");
+    if (lista)
+        lista.parentNode.removeChild(lista);
 
 }
 
