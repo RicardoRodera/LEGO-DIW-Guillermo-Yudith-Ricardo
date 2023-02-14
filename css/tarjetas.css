@@ -1,11 +1,11 @@
-body .container {
+body #figuras {
   background-image: url("../Imagenes/fondoLego.jpg");
 }
-body .card:hover {
+body #figuras .card:hover {
   background-color: black;
   cursor: pointer;
 }
-body .contenedorImagen img {
+body #figuras .contenedorImagen img {
   width: 100%;
   height: 16em;
 }
@@ -20,4 +20,4 @@ body .verde {
 }
 body .amarillo {
   background-color: rgb(254, 196, 0);
-}
+}/*# sourceMappingURL=tarjetas.css.map */

@@ -22,7 +22,7 @@ function mostrarApi(){
       .then(data => {
         totalFiguras = data.count;
         var figuras = data.results;
-        console.log(figuras);
+        
       data.results.slice((paginaActual-1)*tamPagina, paginaActual*tamPagina).forEach(figuras => {
        
         let tarjeta = `
@@ -34,7 +34,7 @@ function mostrarApi(){
               <div class="card-body mt-3 ">
                 <h5 class="card-title text-light">${figuras.name}</h5>
                 <p class="card-text text-light">Numero de partes: ${figuras.num_parts}</p>
-                <p class="card-text text-light">ID#${figuras.set_num}</p>
+                
               </div>
             </div>
           </div>`;
@@ -46,9 +46,9 @@ function mostrarApi(){
           color=0
         };
         
-       
+        actualizaPaginacion(data);
     });
-    actualizaPaginacion(data);
+    
    
   }).catch(function (ex) {
     console.error('Error', ex.message)
@@ -79,20 +79,19 @@ function comprobarImagen(valor){
 }
 
 function actualizaPaginacion(data){
-  document.querySelector("#numeroPagina").innerHTML = paginaActual;
-  document.querySelector("#totalPaginas").innerHTML = Math.ceil(data.count/tamPagina);
-
+  //document.querySelector("#numeroPagina").innerHTML = paginaActual;
+  //document.querySelector("#totalPaginas").innerHTML = Math.ceil(data.count/tamPagina);
+  console.log(paginaActual);
   if(paginaActual==1){
     document.querySelector("#anterior").classList.add("disabled");
-  }else{
-    if(paginaActual==Math.ceil(data.count/tamPagina)){
+  }else if(paginaActual==7){
       document.querySelector("#siguiente").classList.add("disabled");
-    }else{
+  }else{
       document.querySelector("#anterior").classList.remove("disabled");
       document.querySelector("#siguiente").classList.remove("disabled");
-    }
   }
 }
+
 
 function cargaResultados(){
   document.getElementById("catalogo").innerHTML = "";
