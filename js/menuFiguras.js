@@ -16,7 +16,7 @@ function cargarPagina(){
 //comentario para hacer pruebas muy serias
 
 function mostrarApi(){
-  //https://rebrickable.com/api/v3/lego/minifigs/?key=${key}&limit=${tamPagina}&offset=${(paginaActual-1)*tamPagina}
+  
   fetch(`https://rebrickable.com/api/v3/lego/minifigs/?key=${key}&limit=16&offset=${(paginaActual-1)*tamPagina}`)
       .then(response => response.json())
       .then(data => {
@@ -81,7 +81,7 @@ function actualizaPaginacion(){
   
   if(paginaActual==1){
     document.querySelector("#anterior").classList.add("disabled");
-  }else if(paginaActual==7){
+  }else if(paginaActual==Math.ceil(totalFiguras/tamPagina)){
       document.querySelector("#siguiente").classList.add("disabled");
   }else{
       document.querySelector("#anterior").classList.remove("disabled");
