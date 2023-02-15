@@ -13,7 +13,7 @@ function cargarPagina(){
   this.document.querySelector("#anterior").addEventListener("click",pulsaAnterior);
   this.document.querySelector("#siguiente").addEventListener("click",pulsaSiguiente);
 }
-
+//comentario para hacer pruebas muy serias
 
 function mostrarApi(){
   //https://rebrickable.com/api/v3/lego/minifigs/?key=${key}&limit=${tamPagina}&offset=${(paginaActual-1)*tamPagina}
