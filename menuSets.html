@@ -13,12 +13,14 @@
     ></script> -->
     <title>Menú sets</title>
     <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/tarjetas.css">
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
     />
+    <script defer src="js/menuSets.js"></script>
   </head>
 
   <body class="px-4">
@@ -112,11 +114,21 @@
           </div>
         </form>
 
-        <div class="container">
-          <div id="catalogo" class="row m-3 p-5">
-            <h2>Tarjetas lego</h2>
-            <!-- !Quitar título -->
+        <div id="elemento">
+          <div class="container">
+            <div class="row m-3 p-5" id="catalogo"></div>
           </div>
+      
+          <nav id="paginacion" class="w-100">
+            <ul class="pagination pagination-lg flex-grow-1 d-flex justify-content-around">
+              <li class="page-item">
+              <button id="anterior" class="btn rounded page-link bg-danger text-light disabled">Anterior</button>
+            </li>
+            <li class="page-item">
+              <button id="siguiente" class="btn rounded page-link bg-danger text-light">Siguiente</button>
+            </li>
+            </ul>
+          </nav>
         </div>
       </main>
     </div>

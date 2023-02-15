@@ -17,7 +17,7 @@ function cargarPagina(){
 
 function mostrarApi(){
   
-  fetch(`https://rebrickable.com/api/v3/lego/parts/?key=${key}&limit=${tamPagina}&offset=${(paginaActual-1)*tamPagina}`)
+  fetch(`https://rebrickable.com/api/v3/lego/parts/?&page_size=99999&key=${key}&limit=${tamPagina}&offset=${(paginaActual-1)*tamPagina}`)
   .then(response => response.json())
   .then(data => {
     totalFiguras = data.count;
@@ -80,7 +80,7 @@ function actualizaPaginacion(){
   
   if(paginaActual==1){
     document.querySelector("#anterior").classList.add("disabled");
-  }else if(paginaActual==7){
+  }else if(paginaActual==Math.ceil(totalFiguras/tamPagina)){
       document.querySelector("#siguiente").classList.add("disabled");
   }else{
       document.querySelector("#anterior").classList.remove("disabled");

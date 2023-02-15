@@ -1,12 +1,21 @@
 window.addEventListener("load", init);
 const key = "07880df945ae318d79416922e15e7c11"
 const temas = new Map();
+const colores = ["rojo", "azul", "verde", "amarillo"];
+let color=0;
+
+var tamPagina=16;
+var paginaActual=1;
+var totalFiguras = 0;
 
 function init() {
     //document.getElementById("btnBuscar").addEventListener("click", buscar);
-    document.getElementById("tema").addEventListener("input", autocompletar);
-    getTemas();
-    console.log(temas);
+    //document.getElementById("tema").addEventListener("input", autocompletar);
+    //getTemas();
+    //console.log(temas);
+    mostrarApi();
+    this.document.querySelector("#anterior").addEventListener("click",pulsaAnterior);
+    this.document.querySelector("#siguiente").addEventListener("click",pulsaSiguiente);
 
 
 }
@@ -85,5 +94,78 @@ function cierraSugerencias() {
 
 }
 
+function mostrarApi(){
+   
+    fetch(`https://rebrickable.com/api/v3/lego/sets/?&page_size=99999&key=${key}&limit=16&offset=${(paginaActual-1)*tamPagina}`)
+        .then(response => response.json())
+        .then(data => {
+          totalFiguras = data.count;
+          
+        data.results.slice((paginaActual-1)*tamPagina, paginaActual*tamPagina).forEach(sets => {
+         
+          let tarjeta = `
+            <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center pb-5 pt-5">
+              <div class="card ${colores[color]} border border-light rounded" style="width: 18em;">
+                <div class="bg-light contenedorImagen">
+                  ${comprobarImagen(sets.set_img_url)}
+                </div>
+                <div class="card-body mt-3 ">
+                  <h5 class="card-title text-light">${sets.name}</h5>
+                </div>
+              </div>
+            </div>`;
+  
+          document.getElementById('catalogo').innerHTML += tarjeta;
+  
+          color++;
+          if(color==4){
+            color=0
+          };
+          
+          actualizaPaginacion(data);
+      });
+      
+     
+    }).catch(function (ex) {
+      console.error('Error', ex.message)
+    })
+    color=0;
+}
+
+function actualizaPaginacion(){
+  
+    if(paginaActual==1){
+      document.querySelector("#anterior").classList.add("disabled");
+    }else if(paginaActual==Math.ceil(totalFiguras/tamPagina)){
+        document.querySelector("#siguiente").classList.add("disabled");
+    }else{
+        document.querySelector("#anterior").classList.remove("disabled");
+        document.querySelector("#siguiente").classList.remove("disabled");
+    }
+}
+
+function comprobarImagen(valor){
+    if(valor!=null){
+      return  `<img src="`+valor+`" class="card-img-top">`;
+    }else{
+      return  `<img src="../Imagenes/LegoVacio.png" class="card-img-top">`;
+    }
+}
+
+function cargaResultados(){
+    document.getElementById("catalogo").innerHTML = "";
+    mostrarApi();
+}
+
+function pulsaAnterior(){
+    paginaActual--;
+    cargaResultados();
+   
+}
+   
+function pulsaSiguiente(){
+    paginaActual++;
+    cargaResultados();
+}
 
 
