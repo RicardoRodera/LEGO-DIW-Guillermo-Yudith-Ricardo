@@ -16,7 +16,8 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="css/tarjetas.css" />
+    
+    <link rel="stylesheet" href="css/tarjetas.css">
     <!-- ! Meter favicon -->
     <!-- <link rel="icon" type="image/jpg" href="./css/img/ico/favicon.ico" /> -->
     <!-- ! Meter iconos -->
@@ -121,23 +122,25 @@
         </form>
 
 
-    <div class="container">
-      <div class="row m-3 p-5" id="catalogo">
-        <h2>Tarjetas lego</h2>
-            <!-- !Quitar título -->
-      </div>
-    </div>
+        <div id="elemento">
+          <div class="container">
+            <div class="row m-3 p-5" id="catalogo"></div>
+          </div>
+      
+          <nav id="paginacion" class="w-100">
+            <ul class="pagination pagination-lg flex-grow-1 d-flex justify-content-around">
+              <li class="page-item">
+              <button id="anterior" class="btn rounded page-link bg-danger text-light disabled">Anterior</button>
+            </li>
+            <li class="page-item">
+              <button id="siguiente" class="btn rounded page-link bg-danger text-light">Siguiente</button>
+            </li>
+            </ul>
+          </nav>
+        </div>
+
       </main>
   </body>
 
-  <nav id="paginacion" class="w-100">
-        <ul class="pagination pagination-lg flex-grow-1 d-flex justify-content-around ">
-          <li class="page-item  " aria-current="page">
-            <button id="anterior" class="page-link bg-danger text-light disabled">Anterior</button>
-          </li>
-          <li class="page-item " aria-current="page">
-            <button id="siguiente" class="page-link bg-danger text-light">Siguiente</button>
-          </li>      
-        </ul>
-    </nav>
+  
 </html>
