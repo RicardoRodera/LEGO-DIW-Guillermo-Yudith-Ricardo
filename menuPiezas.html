@@ -68,56 +68,36 @@
       </header>
 
       <main class="container">
-        <form class="border-bottom border-dark border-2 p-5">
-          <div class="autocompleccion col-auto">
+        <form class="border-bottom border-dark border-2 p-5 pt-4 row">
+          <div class="autocompleccion col-7 pt-2">
+            <label for="" class="vacio"></label>
             <input
               id="buscarSets"
               list="list-timezone"
-              class="form-control mb-4"
+              class="form-control"
               type="search"
-              placeholder="Busca por sets de Lego"
+              placeholder="Busca por nombre de pieza"
               aria-label="Buscar"
             />
           </div>
 
-          <div class="row">
-            <div class="col-3">
-              <label for="firstName" class="form-label">Tema</label>
+          <div class="col-3">
+              <label for="firstName" class="form-label">Código de pieza</label>
               <input
-                id="buscarTemas"
+                id="buscarCodigo"
                 list="list-timezone"
                 class="form-control mb-3"
                 type="search"
-                placeholder="Busca por tema"
+                placeholder="Busca por código de pieza"
                 aria-label="Buscar"
               />
             </div>
-            <div class="col-3">
-              <label for="firstName" class="form-label">Año</label>
-              <input
-                id="buscarAño"
-                list="list-timezone"
-                class="form-control mb-3"
-                type="search"
-                placeholder="Busca por año"
-                aria-label="Buscar"
-              />
+            
+            <div
+              class="d-flex align-items-center justify-content-center pt-3 col-2 mx-auto"
+            >
+              <button type="submit" class="btn btn-info btn-lg">Buscar</button>
             </div>
-            <div class="col-3">
-              <label for="firstName" class="form-label">Número de piezas</label>
-              <input
-                id="buscarPiezas"
-                list="list-timezone"
-                class="form-control mb-3"
-                type="search"
-                placeholder="Busca por número de piezas"
-                aria-label="Buscar"
-              />
-            </div>
-            <div class="col-3">
-              <button type="submit" class="btn btn-info btn-xs">Buscar</button>
-            </div>
-          </div>
         </form>
 
 
@@ -135,7 +115,7 @@
           <li class="page-item  " aria-current="page">
             <button id="anterior" class="page-link bg-danger text-light disabled">Anterior</button>
           </li>
-          <li class="page-item " aria-current="page">
+          <li class="page-item" aria-current="page">
             <button id="siguiente" class="page-link bg-danger text-light">Siguiente</button>
           </li>      
         </ul>
