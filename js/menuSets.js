@@ -71,7 +71,7 @@ function autocompletar(e) {
         /* Crea un option para cada pais que comienza igual que el texto que he introducido */
         if (tema.value.toLowerCase().startsWith(valor.toLowerCase())) {
             let sugerencia = document.createElement("option");
-            sugerencia.textContent = key;
+            sugerencia.id = key;
             sugerencia.value = value;
             lista.appendChild(sugerencia);
         }
