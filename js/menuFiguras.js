@@ -21,7 +21,6 @@ function mostrarApi(){
       .then(response => response.json())
       .then(data => {
         totalFiguras = data.count;
-        var figuras = data.results;
         
       data.results.slice((paginaActual-1)*tamPagina, paginaActual*tamPagina).forEach(figuras => {
        
@@ -78,10 +77,8 @@ function comprobarImagen(valor){
   }
 }
 
-function actualizaPaginacion(data){
-  //document.querySelector("#numeroPagina").innerHTML = paginaActual;
-  //document.querySelector("#totalPaginas").innerHTML = Math.ceil(data.count/tamPagina);
-  console.log(paginaActual);
+function actualizaPaginacion(){
+  
   if(paginaActual==1){
     document.querySelector("#anterior").classList.add("disabled");
   }else if(paginaActual==7){
