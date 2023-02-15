@@ -3,11 +3,10 @@ const key = "07880df945ae318d79416922e15e7c11"
 const temas = new Map();
 
 function init() {
-    //document.getElementById("btnBuscar").addEventListener("click", buscar);
-    document.getElementById("tema").addEventListener("input", autocompletar);
+    document.getElementById("btnBuscar").addEventListener("click", buscar);
+    document.getElementById("buscarTemas").addEventListener("input", autocompletar);
     getTemas();
     console.log(temas);
-
 
 }
 
@@ -21,7 +20,7 @@ function getTemas() {
         .then(function (jsonData) {
             let results = jsonData.results;
             for (let i = 0; i < results.length; i++) {
-                temas.set(results[i].id, results[i].name);
+                temas.set(results[i].name, results[i].id);
             }
         })
         .catch(function (ex) {
@@ -30,12 +29,13 @@ function getTemas() {
 }
 
 function buscar() {
-    //let busqueda = document.querySelector("#busqueda").value;
-    //let anio = document.querySelector("#anio").value;
-    //let piezas = document.querySelector("#piezas").value;
-    //let tema = document.querySelector("#tema").value;
+    let busqueda = document.querySelector("#buscarSets").value;
+    let anio = document.querySelector("#buscarAño").value;
+    let piezas = document.querySelector("#buscarPiezas").value;
+    console.log(piezas);
+    let tema = document.querySelector("#buscarTemas").value ? temas.get(document.querySelector("#buscarTemas").value) : "";
 
-    fetch("https://rebrickable.com/api/v3/lego/sets/?search=" + busqueda + "&page_size=99999&theme_id=" + tema + "&min_year=" + anio + "&max_year=" + anio + "&key=" + key, { method: 'get' })
+    fetch("https://rebrickable.com/api/v3/lego/sets/?search=" + busqueda + "&page_size=99999&theme_id=" + tema + "&min_year=" + anio + "&max_year=" + anio + "&min_parts=" + piezas + "&max_parts=" + piezas + "&key=" + key, { method: 'get' })
         .then(function (respuesta) {
             return respuesta.json()
         })
@@ -66,13 +66,12 @@ function autocompletar(e) {
     this.setAttribute("list", "lista-autocompleccion")
 
     this.parentNode.appendChild(lista);
-    console.log(temas);
     temas.forEach((value, key) => {
         /* Crea un option para cada pais que comienza igual que el texto que he introducido */
-        if (tema.value.toLowerCase().startsWith(valor.toLowerCase())) {
+        if (key.toLowerCase().startsWith(valor.toLowerCase())) {
             let sugerencia = document.createElement("option");
-            sugerencia.id = key;
-            sugerencia.value = value;
+            sugerencia.id = value;
+            sugerencia.value = key;
             lista.appendChild(sugerencia);
         }
     });
