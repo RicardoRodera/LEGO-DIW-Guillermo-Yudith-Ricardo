@@ -106,7 +106,7 @@ function cierraSugerencias() {
 }
 
 function mostrarApi(){
-   
+    
     fetch(`https://rebrickable.com/api/v3/lego/sets/?&page_size=99999&key=${key}&limit=16&offset=${(paginaActual-1)*tamPagina}`)
         .then(response => response.json())
         .then(data => {
