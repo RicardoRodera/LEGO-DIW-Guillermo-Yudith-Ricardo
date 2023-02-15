@@ -13,15 +13,14 @@ function cargarPagina(){
   this.document.querySelector("#anterior").addEventListener("click",pulsaAnterior);
   this.document.querySelector("#siguiente").addEventListener("click",pulsaSiguiente);
 }
-
+//comentario para hacer pruebas muy serias
 
 function mostrarApi(){
-  //https://rebrickable.com/api/v3/lego/minifigs/?key=${key}&limit=${tamPagina}&offset=${(paginaActual-1)*tamPagina}
+  
   fetch(`https://rebrickable.com/api/v3/lego/minifigs/?key=${key}&limit=16&offset=${(paginaActual-1)*tamPagina}`)
       .then(response => response.json())
       .then(data => {
         totalFiguras = data.count;
-        var figuras = data.results;
         
       data.results.slice((paginaActual-1)*tamPagina, paginaActual*tamPagina).forEach(figuras => {
        
@@ -78,13 +77,11 @@ function comprobarImagen(valor){
   }
 }
 
-function actualizaPaginacion(data){
-  //document.querySelector("#numeroPagina").innerHTML = paginaActual;
-  //document.querySelector("#totalPaginas").innerHTML = Math.ceil(data.count/tamPagina);
-  console.log(paginaActual);
+function actualizaPaginacion(){
+  
   if(paginaActual==1){
     document.querySelector("#anterior").classList.add("disabled");
-  }else if(paginaActual==7){
+  }else if(paginaActual==Math.ceil(totalFiguras/tamPagina)){
       document.querySelector("#siguiente").classList.add("disabled");
   }else{
       document.querySelector("#anterior").classList.remove("disabled");
