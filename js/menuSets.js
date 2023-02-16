@@ -14,7 +14,6 @@ function init() {
     document.getElementById("btnBuscar").addEventListener("click", buscar);
     document.getElementById("buscarTemas").addEventListener("input", autocompletar);
     getTemas();
-    console.log(temas);
     
     mostrarApi();
     this.document.querySelector("#anterior").addEventListener("click",pulsaAnterior);
@@ -47,7 +46,6 @@ function buscar() {
     let busqueda = document.querySelector("#buscarSets").value;
     let anio = document.querySelector("#buscarAño").value;
     let piezas = document.querySelector("#buscarPiezas").value;
-    console.log(piezas);
     let tema = document.querySelector("#buscarTemas").value != "" ? temas.get(document.querySelector("#buscarTemas").value) : "";
 
     fetch("https://rebrickable.com/api/v3/lego/sets/?search=" + busqueda + "&page_size=99999&theme_id=" + tema + "&min_year=" + anio + "&max_year=" + anio + "&min_parts=" + piezas + "&max_parts=" + piezas + "&key=" + key, { method: 'get' })
