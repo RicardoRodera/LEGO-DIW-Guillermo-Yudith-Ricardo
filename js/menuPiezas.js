@@ -1,4 +1,5 @@
 window.addEventListener("load", cargarPagina);
+const coloresPiezas = new Map();
 
 const key = "07880df945ae318d79416922e15e7c11";
 let colores = ["rojo", "azul", "verde", "amarillo"];
@@ -10,6 +11,7 @@ var totalFiguras = 0;
 
 function cargarPagina() {
   document.getElementById("btnBuscar").addEventListener("click", buscar);
+  getColores();
 
   mostrarApi();
   this.document.querySelector("#anterior").addEventListener("click", pulsaAnterior);
@@ -132,4 +134,52 @@ function buscar() {
 
   document.querySelector("#buscarPiezas").value = "";
   document.querySelector("#buscarCodigo").value = "";
+}
+
+function getColores() {
+  let listaColores = [];
+  fetch("https://rebrickable.com/api/v3/lego/colors/?page_size=217&key=" + key, { method: 'get' })
+    .then(function (respuesta) {
+      return respuesta.json()
+    })
+    .then(function (jsonData) {
+      let results = jsonData.results;
+      for (let i = 0; i < results.length; i++) {
+        coloresPiezas.set(results[i].name, results[i].id);
+      }
+    })
+    .catch(function (ex) {
+      console.error('Error', ex.message)
+    })
+}
+
+function autocompletar(e) {
+  cierraSugerencias();
+
+  let valor = this.value;
+  if (!valor)
+    return false;
+
+  /*Creamos un div que contendrá las sugerencias:*/
+  let lista = document.createElement("datalist");
+  lista.setAttribute("id", "lista-autocompleccion");
+  this.setAttribute("list", "lista-autocompleccion")
+
+  this.parentNode.appendChild(lista);
+  coloresPiezas.forEach((value, key) => {
+    /* Crea un option para cada color que comienza igual que el texto que he introducido */
+    if (key.toLowerCase().startsWith(valor.toLowerCase())) {
+      let sugerencia = document.createElement("option");
+      sugerencia.id = value;
+      sugerencia.value = key;
+      lista.appendChild(sugerencia);
+    }
+  });
+}
+
+function cierraSugerencias() {
+  var lista = document.querySelector("#lista-autocompleccion");
+  if (lista)
+    lista.parentNode.removeChild(lista);
+
 }
