@@ -14,7 +14,6 @@ function init() {
     document.getElementById("btnBuscar").addEventListener("click", buscar);
     document.getElementById("buscarTemas").addEventListener("input", autocompletar);
     getTemas();
-    console.log(temas);
     
     mostrarApi();
     this.document.querySelector("#anterior").addEventListener("click",pulsaAnterior);
