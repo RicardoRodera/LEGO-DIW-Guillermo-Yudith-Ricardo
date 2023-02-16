@@ -133,11 +133,11 @@ function getTemas() {
 }
 
 function buscar() {
-  let busqueda = document.querySelector("#buscarSets").value;
+  let busqueda = document.querySelector("#buscarFiguras").value;
   let piezas = document.querySelector("#buscarPiezas").value;
   let tema = document.querySelector("#buscarTemas").value != "" ? temas.get(document.querySelector("#buscarTemas").value) : "";
 
-  fetch("https://rebrickable.com/api/v3/lego/sets/?search=" + busqueda + "&page_size=99999&theme_id=" + tema +  "&min_parts=" + piezas + "&max_parts=" + piezas + "&key=" + key, { method: 'get' })
+  fetch("https://rebrickable.com/api/v3/lego/minifigs/?search=" + busqueda + "&page_size=99999&in_theme_id=" + tema +  "&min_parts=" + piezas + "&max_parts=" + piezas + "&key=" + key, { method: 'get' })
     .then(function (respuesta) {
       return respuesta.json()
     })
@@ -154,8 +154,7 @@ function buscar() {
       console.error('Error', ex.message)
     })
 
-  document.querySelector("#buscarSets").value = "";
-  document.querySelector("#buscarAño").value = "";
+  document.querySelector("#buscarFiguras").value = "";
   document.querySelector("#buscarPiezas").value = "";
   document.querySelector("#buscarTemas").value = "";
 }
