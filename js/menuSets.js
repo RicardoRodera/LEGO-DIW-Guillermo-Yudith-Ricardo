@@ -14,7 +14,6 @@ function init() {
     document.getElementById("btnBuscar").addEventListener("click", buscar);
     document.getElementById("buscarTemas").addEventListener("input", autocompletar);
     getTemas();
-    console.log(temas);
     
     mostrarApi();
     this.document.querySelector("#anterior").addEventListener("click",pulsaAnterior);
@@ -44,11 +43,22 @@ function getTemas() {
 
 //Esta funcion es la que recibe los datos del formulario y hace la llamada a la API en consonancia
 function buscar() {
+    paginaActual=1;
     let busqueda = document.querySelector("#buscarSets").value;
     let anio = document.querySelector("#buscarAño").value;
     let piezas = document.querySelector("#buscarPiezas").value;
-    console.log(piezas);
     let tema = document.querySelector("#buscarTemas").value != "" ? temas.get(document.querySelector("#buscarTemas").value) : "";
+    
+
+    localStorage.setItem("busqueda",busqueda);
+    localStorage.setItem("tema_id",tema);
+    localStorage.setItem("anio",anio);
+    localStorage.setItem("piezas",piezas);
+
+    document.getElementById('buscarSets').value = localStorage.getItem("busqueda");
+
+  
+    document.getElementById("catalogo").innerHTML = "";
 
     fetch("https://rebrickable.com/api/v3/lego/sets/?search=" + busqueda + "&page_size=99999&theme_id=" + tema + "&min_year=" + anio + "&max_year=" + anio + "&min_parts=" + piezas + "&max_parts=" + piezas + "&key=" + key, { method: 'get' })
         .then(function (respuesta) {
@@ -56,21 +66,41 @@ function buscar() {
         })
         .then(function (jsonData) {
             console.log(jsonData)
-            for (let i = 0; i < jsonData.results.length; i++) {
-                setJson = jsonData.results[i];
+        
+         
+            jsonData.results.slice((paginaActual - 1) * tamPagina, paginaActual * tamPagina).forEach((setJson) => {
                 console.log("Nombre del set: " + setJson.name);
                 console.log("Año de salida del set: " + setJson.year);
                 console.log("Imagen del set: " + setJson.set_img_url);
-            }
+                let tarjeta = `
+                    <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center pb-5 pt-5">
+                        <div class="card ${colores[color]} border border-light rounded" style="width: 18em;">
+                            <div class="bg-light contenedorImagen">
+                                ${comprobarImagen(setJson.set_img_url)}
+                            </div>
+                            <div class="card-body mt-3 ">
+                                <h5 class="card-title text-light">${setJson.name}</h5>
+                                <p class="card-text text-light">Año: ${setJson.year}</p>
+                                <p class="card-text text-light">Numero de piezas: ${setJson.num_parts}</p>
+                            </div>
+                        </div>
+                    </div>`;
+
+                document.getElementById('catalogo').innerHTML += tarjeta;
+
+                color++;
+                if(color==4){
+                    color=0
+                };
+          
+                actualizaPaginacion();
+            });
         })
         .catch(function (ex) {
             console.error('Error', ex.message)
         })
 
-    document.querySelector("#buscarSets").value = "";
-    document.querySelector("#buscarAño").value = "";
-    document.querySelector("#buscarPiezas").value = "";
-    document.querySelector("#buscarTemas").value = "";
+    
 }
 
 
@@ -106,7 +136,7 @@ function cierraSugerencias() {
 }
 
 function mostrarApi(){
-   
+    
     fetch(`https://rebrickable.com/api/v3/lego/sets/?&page_size=99999&key=${key}&limit=16&offset=${(paginaActual-1)*tamPagina}`)
         .then(response => response.json())
         .then(data => {
@@ -122,6 +152,8 @@ function mostrarApi(){
                 </div>
                 <div class="card-body mt-3 ">
                   <h5 class="card-title text-light">${sets.name}</h5>
+                  <p class="card-text text-light">Año: ${sets.year}</p>
+                  <p class="card-text text-light">Numero de piezas: ${sets.num_parts}</p>
                 </div>
               </div>
             </div>`;
@@ -133,7 +165,7 @@ function mostrarApi(){
             color=0
           };
           
-          actualizaPaginacion(data);
+          actualizaPaginacion();
       });
       
      
@@ -170,13 +202,19 @@ function cargaResultados(){
 
 function pulsaAnterior(){
     paginaActual--;
-    cargaResultados();
+    buscar();
+    //cargaResultados();
    
 }
    
 function pulsaSiguiente(){
     paginaActual++;
-    cargaResultados();
+    localStorage.setItem("busqueda",document.querySelector("#buscarSets").value);
+    localStorage.setItem("tema_id",document.querySelector("#buscarTemas").value != "" ? temas.get(document.querySelector("#buscarTemas").value) : "");
+    localStorage.setItem("anio",document.querySelector("#buscarAño").value);
+    localStorage.setItem("piezas",document.querySelector("#buscarPiezas").value);
+    buscar();
+    //cargaResultados();
 }
 
 

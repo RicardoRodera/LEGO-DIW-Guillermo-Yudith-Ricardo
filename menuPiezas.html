@@ -69,11 +69,11 @@
       </header>
 
       <main class="container">
-        <form class="border-bottom border-dark border-2 p-5 pt-4 row">
-          <div class="autocompleccion col-4 pt-2">
+        <div id="form" class="border-bottom border-dark border-2 p-5 pt-4 row">
+          <div class="autocompleccion col-7 pt-2">
             <label for="" class="vacio"></label>
             <input
-              id="buscarSets"
+              id="buscarPiezas"
               list="list-timezone"
               class="form-control"
               type="search"
@@ -109,9 +109,9 @@
             <div
               class="d-flex align-items-center justify-content-center pt-3 col-2 mx-auto"
             >
-              <button type="submit" class="btn btn-info btn-lg">Buscar</button>
+              <button id="btnBuscar" type="submit" class="btn btn-info btn-lg">Buscar</button>
             </div>
-        </form>
+        </div>
 
 
         <div id="elemento">
@@ -134,14 +134,4 @@
       </main>
   </body>
 
-  <nav id="paginacion" class="w-100">
-        <ul class="pagination pagination-lg flex-grow-1 d-flex justify-content-around ">
-          <li class="page-item  " aria-current="page">
-            <button id="anterior" class="page-link bg-danger text-light disabled">Anterior</button>
-          </li>
-          <li class="page-item" aria-current="page">
-            <button id="siguiente" class="page-link bg-danger text-light">Siguiente</button>
-          </li>      
-        </ul>
-    </nav>
 </html>
