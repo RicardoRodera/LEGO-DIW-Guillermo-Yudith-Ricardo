@@ -11,6 +11,7 @@ var totalFiguras = 0;
 
 function cargarPagina() {
   document.getElementById("btnBuscar").addEventListener("click", buscar);
+  document.getElementById("colorPieza").addEventListener("input", autocompletar);
   getColores();
 
   mostrarApi();
