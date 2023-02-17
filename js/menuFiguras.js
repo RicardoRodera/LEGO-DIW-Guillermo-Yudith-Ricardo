@@ -13,52 +13,17 @@ function cargarPagina() {
   document.getElementById("buscarTemas").addEventListener("input", autocompletar);
   getTemas();
 
-  mostrarApi();
+  buscar();
   this.document.querySelector("#anterior").addEventListener("click", pulsaAnterior);
   this.document.querySelector("#siguiente").addEventListener("click", pulsaSiguiente);
 }
 //comentario para hacer pruebas muy serias
 
-function mostrarApi() {
-
-  fetch(`https://rebrickable.com/api/v3/lego/minifigs/?&page_size=99999&key=${key}&limit=16&offset=${(paginaActual - 1) * tamPagina}`)
-    .then(response => response.json())
-    .then(data => {
-      totalFiguras = data.count;
-
-      data.results.slice((paginaActual - 1) * tamPagina, paginaActual * tamPagina).forEach(figuras => {
-
-        let tarjeta = `
-          <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center pb-5 pt-5">
-            <div class="card ${colores[color]} border border-light rounded" style="width: 18em;">
-              <div class="bg-light contenedorImagen">
-                ${comprobarImagen(figuras.set_img_url)}
-              </div>
-              <div class="card-body mt-3 ">
-                <h5 class="card-title text-light">${figuras.name}</h5>
-                <p class="card-text text-light">Numero de partes: ${figuras.num_parts}</p>
-                
-              </div>
-            </div>
-          </div>`;
-
-        document.getElementById('catalogo').innerHTML += tarjeta;
-
-        color++;
-        if (color == 4) {
-          color = 0
-        };
-
-        actualizaPaginacion(data);
-      });
-
-
-    }).catch(function (ex) {
-      console.error('Error', ex.message)
-    })
-  color = 0;
+function buscar() {
+  paginaActual=1;
+  mostrarBusqueda();
+  
 }
-
 
 function getSetsBusqueda(busqueda = "") {
   fetch("https://rebrickable.com/api/v3/lego/sets/?search=" + busqueda + "&key=" + key, { method: 'get' })
@@ -81,35 +46,6 @@ function comprobarImagen(valor) {
   }
 }
 
-function actualizaPaginacion() {
-
-  if (paginaActual == 1) {
-    document.querySelector("#anterior").classList.add("disabled");
-  } else if (paginaActual == 7) {
-    document.querySelector("#siguiente").classList.add("disabled");
-  } else {
-    document.querySelector("#anterior").classList.remove("disabled");
-    document.querySelector("#siguiente").classList.remove("disabled");
-  }
-}
-
-
-function cargaResultados() {
-  document.getElementById("catalogo").innerHTML = "";
-  mostrarApi();
-}
-
-
-function pulsaAnterior() {
-  paginaActual--;
-  cargaResultados();
-
-}
-
-function pulsaSiguiente() {
-  paginaActual++;
-  cargaResultados();
-}
 
 //getSetsBusqueda();
 
@@ -132,32 +68,78 @@ function getTemas() {
     })
 }
 
-function buscar() {
+function mostrarBusqueda(){
   let busqueda = document.querySelector("#buscarFiguras").value;
   let piezas = document.querySelector("#buscarPiezas").value;
   let tema = document.querySelector("#buscarTemas").value != "" ? temas.get(document.querySelector("#buscarTemas").value) : "";
 
-  fetch("https://rebrickable.com/api/v3/lego/minifigs/?search=" + busqueda + "&page_size=99999&in_theme_id=" + tema +  "&min_parts=" + piezas + "&max_parts=" + piezas + "&key=" + key, { method: 'get' })
-    .then(function (respuesta) {
-      return respuesta.json()
-    })
-    .then(function (jsonData) {
-      console.log(jsonData)
-      for (let i = 0; i < jsonData.results.length; i++) {
-        setJson = jsonData.results[i];
-        console.log("Nombre del set: " + setJson.name);
-        console.log("Año de salida del set: " + setJson.year);
-        console.log("Imagen del set: " + setJson.set_img_url);
-      }
-    })
-    .catch(function (ex) {
-      console.error('Error', ex.message)
-    })
+  
+  document.getElementById("catalogo").innerHTML = "";
 
-  document.querySelector("#buscarFiguras").value = "";
-  document.querySelector("#buscarPiezas").value = "";
-  document.querySelector("#buscarTemas").value = "";
+  fetch("https://rebrickable.com/api/v3/lego/minifigs/?search=" + busqueda + "&page_size=99999&in_theme_id=" + tema +  "&min_parts=" + piezas + "&max_parts=" + piezas + "&key=" + key, { method: 'get' })
+      .then(function (respuesta) {
+          return respuesta.json()
+      })
+      .then(function (jsonData) {
+          console.log(jsonData)
+      
+          totalFiguras = jsonData.results.length;
+          jsonData.results.slice((paginaActual - 1) * tamPagina, paginaActual * tamPagina).forEach((setJson) => {
+              
+              let tarjeta = `
+                  <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center pb-5 pt-5">
+                      <div class="card ${colores[color]} border border-light rounded" style="width: 18em;">
+                          <div class="bg-light contenedorImagen">
+                              ${comprobarImagen(setJson.set_img_url)}
+                          </div>
+                          <div class="card-body mt-3 ">
+                              <h5 class="card-title text-light">${setJson.name}</h5>
+                              <p class="card-text text-light">Numero de partes: ${setJson.num_parts}</p>
+                              <button type="button" class="btn btn-primary">Comprar</button>
+                          </div>
+                      </div>
+                  </div>`;
+
+              document.getElementById('catalogo').innerHTML += tarjeta;
+
+              color++;
+              if(color==4){
+                  color=0
+              };
+        
+              actualizaPaginacion();
+          });
+      })
+      .catch(function (ex) {
+          console.error('Error', ex.message)
+      })
 }
+
+function actualizaPaginacion(){
+  
+  if(paginaActual==1){
+    document.querySelector("#anterior").classList.add("disabled");
+    document.querySelector("#siguiente").classList.remove("disabled");
+  }else if(paginaActual==Math.ceil(totalFiguras/tamPagina)){
+      document.querySelector("#siguiente").classList.add("disabled");
+      document.querySelector("#anterior").classList.remove("disabled");
+  }else{
+      document.querySelector("#anterior").classList.remove("disabled");
+      document.querySelector("#siguiente").classList.remove("disabled");
+  }
+}
+
+
+function pulsaAnterior(){
+  paginaActual--;
+  mostrarBusqueda();
+}
+ 
+function pulsaSiguiente(){
+  paginaActual++;
+  mostrarBusqueda();
+}
+
 
 function autocompletar(e) {
   cierraSugerencias();

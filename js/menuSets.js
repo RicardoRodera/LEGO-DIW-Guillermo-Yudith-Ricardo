@@ -63,7 +63,7 @@ function mostrarBusqueda(){
         .then(function (jsonData) {
             console.log(jsonData)
         
-         
+            totalFiguras = jsonData.results.length;
             jsonData.results.slice((paginaActual - 1) * tamPagina, paginaActual * tamPagina).forEach((setJson) => {
                 console.log("Nombre del set: " + setJson.name);
                 console.log("Año de salida del set: " + setJson.year);
@@ -74,10 +74,11 @@ function mostrarBusqueda(){
                             <div class="bg-light contenedorImagen">
                                 ${comprobarImagen(setJson.set_img_url)}
                             </div>
-                            <div class="card-body mt-3 ">
+                            <div class="card-body mt-3">
                                 <h5 class="card-title text-light">${setJson.name}</h5>
                                 <p class="card-text text-light">Año: ${setJson.year}</p>
                                 <p class="card-text text-light">Numero de piezas: ${setJson.num_parts}</p>
+                                <button type="button" class="btn btn-primary">Comprar</button>
                             </div>
                         </div>
                     </div>`;
@@ -134,13 +135,16 @@ function actualizaPaginacion(){
   
     if(paginaActual==1){
       document.querySelector("#anterior").classList.add("disabled");
+      document.querySelector("#siguiente").classList.remove("disabled");
     }else if(paginaActual==Math.ceil(totalFiguras/tamPagina)){
         document.querySelector("#siguiente").classList.add("disabled");
+        document.querySelector("#anterior").classList.remove("disabled");
     }else{
         document.querySelector("#anterior").classList.remove("disabled");
         document.querySelector("#siguiente").classList.remove("disabled");
     }
-}
+  }
+  
 
 function comprobarImagen(valor){
     if(valor!=null){
@@ -150,23 +154,16 @@ function comprobarImagen(valor){
     }
 }
 
-function cargaResultados(){
-    document.getElementById("catalogo").innerHTML = "";
-    mostrarApi();
-}
+
 
 function pulsaAnterior(){
     paginaActual--;
-    
     mostrarBusqueda();
-    
 }
    
 function pulsaSiguiente(){
     paginaActual++;
-    
     mostrarBusqueda();
-    
 }
 
 
