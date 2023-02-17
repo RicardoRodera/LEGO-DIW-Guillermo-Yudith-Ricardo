@@ -15,7 +15,7 @@ function init() {
     document.getElementById("buscarTemas").addEventListener("input", autocompletar);
     getTemas();
     
-    mostrarApi();
+    buscar();
     this.document.querySelector("#anterior").addEventListener("click",pulsaAnterior);
     this.document.querySelector("#siguiente").addEventListener("click",pulsaSiguiente);
 
@@ -44,20 +44,16 @@ function getTemas() {
 //Esta funcion es la que recibe los datos del formulario y hace la llamada a la API en consonancia
 function buscar() {
     paginaActual=1;
+    mostrarBusqueda();
+    
+}
+
+function mostrarBusqueda(){
     let busqueda = document.querySelector("#buscarSets").value;
     let anio = document.querySelector("#buscarAño").value;
     let piezas = document.querySelector("#buscarPiezas").value;
     let tema = document.querySelector("#buscarTemas").value != "" ? temas.get(document.querySelector("#buscarTemas").value) : "";
     
-
-    localStorage.setItem("busqueda",busqueda);
-    localStorage.setItem("tema_id",tema);
-    localStorage.setItem("anio",anio);
-    localStorage.setItem("piezas",piezas);
-
-    document.getElementById('buscarSets').value = localStorage.getItem("busqueda");
-
-  
     document.getElementById("catalogo").innerHTML = "";
 
     fetch("https://rebrickable.com/api/v3/lego/sets/?search=" + busqueda + "&page_size=99999&theme_id=" + tema + "&min_year=" + anio + "&max_year=" + anio + "&min_parts=" + piezas + "&max_parts=" + piezas + "&key=" + key, { method: 'get' })
@@ -99,8 +95,6 @@ function buscar() {
         .catch(function (ex) {
             console.error('Error', ex.message)
         })
-
-    
 }
 
 
@@ -135,45 +129,6 @@ function cierraSugerencias() {
 
 }
 
-function mostrarApi(){
-    
-    fetch(`https://rebrickable.com/api/v3/lego/sets/?&page_size=99999&key=${key}&limit=16&offset=${(paginaActual-1)*tamPagina}`)
-        .then(response => response.json())
-        .then(data => {
-          totalFiguras = data.count;
-          
-        data.results.slice((paginaActual-1)*tamPagina, paginaActual*tamPagina).forEach(sets => {
-         
-          let tarjeta = `
-            <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center pb-5 pt-5">
-              <div class="card ${colores[color]} border border-light rounded" style="width: 18em;">
-                <div class="bg-light contenedorImagen">
-                  ${comprobarImagen(sets.set_img_url)}
-                </div>
-                <div class="card-body mt-3 ">
-                  <h5 class="card-title text-light">${sets.name}</h5>
-                  <p class="card-text text-light">Año: ${sets.year}</p>
-                  <p class="card-text text-light">Numero de piezas: ${sets.num_parts}</p>
-                </div>
-              </div>
-            </div>`;
-  
-          document.getElementById('catalogo').innerHTML += tarjeta;
-  
-          color++;
-          if(color==4){
-            color=0
-          };
-          
-          actualizaPaginacion();
-      });
-      
-     
-    }).catch(function (ex) {
-      console.error('Error', ex.message)
-    })
-    color=0;
-}
 
 function actualizaPaginacion(){
   
@@ -202,19 +157,17 @@ function cargaResultados(){
 
 function pulsaAnterior(){
     paginaActual--;
-    buscar();
-    //cargaResultados();
-   
+    
+    mostrarBusqueda();
+    
 }
    
 function pulsaSiguiente(){
     paginaActual++;
-    localStorage.setItem("busqueda",document.querySelector("#buscarSets").value);
-    localStorage.setItem("tema_id",document.querySelector("#buscarTemas").value != "" ? temas.get(document.querySelector("#buscarTemas").value) : "");
-    localStorage.setItem("anio",document.querySelector("#buscarAño").value);
-    localStorage.setItem("piezas",document.querySelector("#buscarPiezas").value);
-    buscar();
-    //cargaResultados();
+    
+    mostrarBusqueda();
+    
 }
+
 
 
