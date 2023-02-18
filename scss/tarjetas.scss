@@ -1,9 +1,10 @@
 body { 
+    background-image: url("../Imagenes/fondoLego7.jpg");
     
-
     #elemento{
-        background-image: url("../Imagenes/fondoLego.jpg");
-
+    
+        border: 3px solid white;
+        border-radius: 10px;
         .card:hover {
             background-color: black;
             cursor: pointer;
@@ -20,8 +21,12 @@ body {
         }
     }
 
+    .elemento-rojo{
+        background-color: rgb(	222, 0, 13);
+    }
+
     .azul{
-        //background-image: url("../Imagenes/montonazul.jpg");
+       
         background-color: rgb(0, 87, 168);
     }
 
@@ -37,7 +42,6 @@ body {
         background-color: rgb(254, 196, 0);
     }
 
-   
-    
 }
+
 

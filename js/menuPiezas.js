@@ -39,7 +39,7 @@ function comprobarImagen(valor) {
   if (valor != null) {
     return `<img src="` + valor + `" class="card-img-top">`;
   } else {
-    return `<img src="../Imagenes/bloqueLego.jfif" class="card-img-top">`;
+    return `<img src="../Imagenes/piezaLego.jpg" class="card-img-top">`;
   }
 }
 

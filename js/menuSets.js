@@ -150,7 +150,7 @@ function comprobarImagen(valor){
     if(valor!=null){
       return  `<img src="`+valor+`" class="card-img-top">`;
     }else{
-      return  `<img src="../Imagenes/LegoVacio.png" class="card-img-top">`;
+      return  `<img src="../Imagenes/piezasLego.jpg" class="card-img-top">`;
     }
 }
 
