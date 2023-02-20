@@ -20,16 +20,19 @@
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
     />
+
     <script defer src="js/menuSets.js"></script>
   </head>
 
   <body class="px-4">
-    <div class="container-fluid">
+    <div id="webSets" class="container-fluid">
       <header
         class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom border-dark border-2"
       >
         <div div class="col-sm-12 col-md-4 text-center">
-          <a href="menuInicial.html"><h1 class="text-dark">LEGO Gestor</h1></a>
+          <a class="tituloPrincipal" href="menuInicial.html"
+            ><h1 class="text-dark">LEGO Gestor</h1></a
+          >
           <!-- !QUITAR SUBRAYADO -->
         </div>
         <div div class="col-sm-12 col-md-4">
@@ -40,7 +43,9 @@
               <a href="#" class="nav-link px-2 text-danger">SETS</a>
             </li>
             <li>
-              <a href="menuFiguras.html" class="nav-link text-dark px-2"
+              <a
+                href="menuFiguras.html"
+                class="btn btn-info nav-link text-dark px-2"
                 >FIGURAS</a
               >
             </li>
@@ -52,16 +57,17 @@
           </ul>
         </div>
         <div class="col-md-3 text-end">
-          <button 
-            type="button" 
+          <button
+            type="button"
             class="btn btn-warning text-white me-2 border-1 border-dark"
-            >Usuario
-        </button>
+          >
+            Usuario
+          </button>
         </div>
       </header>
 
       <main class="container">
-        <div id="formulario" class="border-bottom border-dark border-2 p-5 ">
+        <div id="formulario" class="border-bottom border-dark border-2 p-5">
           <div class="autocompleccion col-auto">
             <input
               id="buscarSets"
