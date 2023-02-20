@@ -12,6 +12,8 @@ body #elemento .card:hover {
 body #elemento .contenedorImagen img {
   width: 100%;
   height: 16em;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 body .elemento-rojo {
   background-color: rgb(222, 0, 13);
@@ -27,4 +29,4 @@ body .verde {
 }
 body .amarillo {
   background-color: rgb(254, 196, 0);
-}/*# sourceMappingURL=tarjetas.css.map */
+}
