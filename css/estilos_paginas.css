@@ -22,5 +22,5 @@ main #elemento {
   background-image: url("../Imagenes/fondo-lego2.png");
   background-size: contain;
   margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
 }
