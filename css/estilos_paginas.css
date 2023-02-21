@@ -1,3 +1,15 @@
-#webSets .tituloPrincipal {
+@font-face {
+  font-family: "Lego";
+  src: url("../Tipografia/Legothick.ttf");
+}
+body {
+  font-family: "Labrada", serif;
+}
+
+.tituloPrincipal {
   text-decoration: none;
+}
+.tituloPrincipal h1 {
+  font-family: "Lego", serif;
+  font-size: 60px;
 }

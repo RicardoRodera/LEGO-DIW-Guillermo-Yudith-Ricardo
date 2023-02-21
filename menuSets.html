@@ -6,12 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Menú sets</title>
     <link rel="icon" type="image/jpg" href="css/img/favicon/lego.ico" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Labrada"
+    />
+    <link href="Tipografia/Legothick.ttf" rel="stylesheet" type="text/css" />
     <!-- ! Meter iconos -->
     <!-- <script
       src="https://kit.fontawesome.com/e826ef05b7.js"
       crossorigin="anonymous"
     ></script> -->
-    <!-- Tipografía -->
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/tarjetas.css" />
     <link
@@ -24,51 +28,60 @@
     <script defer src="js/menuSets.js"></script>
   </head>
 
-  <body class="px-5">
+  <body class="">
     <div id="webSets" class="container-fluid">
       <header
         class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom border-dark border-2"
       >
         <div div class="col-sm-12 col-md-4">
           <a class="tituloPrincipal" href="menuInicial.html"
-            ><h1 class="text-dark">LEGO Gestor</h1></a
+            ><h1 class="text-dark ps-4">LEGO Gestor</h1></a
           >
-          <!-- !QUITAR SUBRAYADO -->
         </div>
         <div div class="col-sm-12 col-md-4">
           <ul
             class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"
           >
             <li>
-              <a href="#" class="nav-link px-2 text-danger">SETS</a>
+              <a
+                href="#"
+                id="botonSets"
+                class="btn btn-info nav-link text-dark px-2"
+                >SETS</a
+              >
             </li>
             <li>
               <a
                 href="menuFiguras.html"
+                id="botonFiguras"
                 class="btn btn-info nav-link text-dark px-2"
                 >FIGURAS</a
               >
             </li>
             <li>
-              <a href="menuPiezas.html" class="nav-link text-dark px-2"
+              <a
+                href="menuPiezas.html"
+                id="botonPiezas"
+                class="btn btn-info nav-link text-dark px-2"
                 >PIEZAS</a
               >
             </li>
           </ul>
         </div>
         <div class="col-md-3 text-end">
-          <button
-            type="button"
-            class="btn btn-warning text-white me-2 border-1 border-dark"
+          <a
+            href="menuUsuario.html"
+            id="botonUsuario"
+            class="btn btn-info nav-link text-dark px-2"
+            >USUARIO</a
           >
-            Usuario
-          </button>
         </div>
       </header>
 
       <main class="container">
         <div id="formulario" class="border-bottom border-dark border-2 p-5">
           <div class="autocompleccion col-auto">
+            <label for="firstName" class="form-label">Buscar sets</label>
             <input
               id="buscarSets"
               list="list-timezone"
@@ -94,7 +107,7 @@
             <div class="col-md-3 col-sm-6">
               <label for="firstName" class="form-label">Año</label>
               <input
-                id="buscarAño"
+                id="buscarAnno"
                 list="list-timezone"
                 class="form-control mb-3"
                 type="search"

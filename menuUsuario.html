@@ -5,12 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/jpg" href="css/img/favicon/lego.ico" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Labrada"
+    />
+    <link href="Tipografia/Legothick.ttf" rel="stylesheet" type="text/css" />
     <!-- ! Meter iconos -->
     <!-- <script
       src="https://kit.fontawesome.com/e826ef05b7.js"
       crossorigin="anonymous"
     ></script> -->
-    <!-- Tipografía -->
     <title>Usuario</title>
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/tarjetas.css" />
@@ -25,7 +29,7 @@
     <!-- <script defer src="js/menuSets.js"></script> -->
   </head>
 
-  <body class="px-4">
+  <body class="">
     <div class="container-fluid">
       <header
         class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom border-dark border-2"
@@ -79,6 +83,7 @@
         <!-- ? Filtro Sets: -->
         <div id="formulario" class="border-bottom border-dark border-2 p-5">
           <div class="autocompleccion col-auto">
+            <label for="firstName" class="form-label">Buscar sets</label>
             <input
               id="buscarSets"
               list="list-timezone"
@@ -104,7 +109,7 @@
             <div class="col-3">
               <label for="firstName" class="form-label">Año</label>
               <input
-                id="buscarAño"
+                id="buscarAnno"
                 list="list-timezone"
                 class="form-control mb-3"
                 type="search"
@@ -137,6 +142,7 @@
         <!-- ? Filtro Figuras: -->
         <div class="border-bottom border-dark border-2 p-5">
           <div class="autocompleccion col-auto">
+            <label for="firstName" class="form-label">Buscar figuras</label>
             <input
               id="buscarSets"
               list="list-timezone"
@@ -180,21 +186,21 @@
         </div>
 
         <!-- ? Filtro Piezas: -->
-        <div class="border-bottom border-dark border-2 p-5 pt-4 row">
-          <div class="autocompleccion col-7 pt-2">
-            <label for="" class="vacio"></label>
+        <div id="form" class="border-bottom border-dark border-2 p-5 pt-4 row">
+          <div class="autocompleccion col-md-4 col-sm-12">
+            <label for="firstName" class="form-label">Buscar piezas</label>
             <input
-              id="buscarSets"
+              id="buscarPiezas"
               list="list-timezone"
-              class="form-control"
+              class="form-control mb-3"
               type="search"
               placeholder="Busca por nombre de pieza"
               aria-label="Buscar"
             />
           </div>
 
-          <div class="col-3">
-            <label for="firstName" class="form-label">Código de pieza</label>
+          <div class="col-md-3 col-sm-6">
+            <label for="firstName" class="form-label">Código</label>
             <input
               id="buscarCodigo"
               list="list-timezone"
@@ -205,10 +211,24 @@
             />
           </div>
 
+          <div class="col-md-3 col-sm-6">
+            <label for="firstName" class="form-label">Color</label>
+            <input
+              id="colorPieza"
+              list="list-timezone"
+              class="form-control mb-3"
+              type="search"
+              placeholder="Busca por color de la pieza"
+              aria-label="Buscar"
+            />
+          </div>
+
           <div
             class="d-flex align-items-center justify-content-center pt-3 col-2 mx-auto"
           >
-            <button type="submit" class="btn btn-info btn-lg">Buscar</button>
+            <button id="btnBuscar" type="submit" class="btn btn-info btn-lg">
+              Buscar
+            </button>
           </div>
         </div>
 
