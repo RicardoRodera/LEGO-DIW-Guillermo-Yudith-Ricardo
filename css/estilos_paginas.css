@@ -17,3 +17,10 @@ header .tituloPrincipal h1 {
   font-family: "Lego", serif;
   font-size: 60px;
 }
+
+main #elemento {
+  background-image: url("../Imagenes/fondo-lego2.png");
+  background-size: contain;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
