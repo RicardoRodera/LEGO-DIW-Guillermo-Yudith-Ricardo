@@ -6,10 +6,14 @@ body {
   font-family: "Labrada", serif;
 }
 
-.tituloPrincipal {
+header {
+  background-image: url("../Imagenes/barraNavegacion.jpg");
+  background-size: contain;
+}
+header .tituloPrincipal {
   text-decoration: none;
 }
-.tituloPrincipal h1 {
+header .tituloPrincipal h1 {
   font-family: "Lego", serif;
   font-size: 60px;
 }

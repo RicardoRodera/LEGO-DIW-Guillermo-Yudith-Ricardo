@@ -7,10 +7,15 @@ body {
   font-family: "Labrada", serif;
 }
 
-.tituloPrincipal {
-  text-decoration: none;
-  h1 {
-    font-family: "Lego", serif;
-    font-size: 60px;
+header {
+  background-image: url("../Imagenes/barraNavegacion.jpg");
+  background-size: contain;
+
+  .tituloPrincipal {
+    text-decoration: none;
+    h1 {
+      font-family: "Lego", serif;
+      font-size: 60px;
+    }
   }
 }

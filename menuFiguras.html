@@ -24,47 +24,61 @@
       href="https://fonts.googleapis.com/css2?family=Labrada"
     />
     <link href="Tipografia/Legothick.ttf" rel="stylesheet" type="text/css" />
-    <!-- ! Meter iconos -->
-    <!-- <script
+    <script
       src="https://kit.fontawesome.com/e826ef05b7.js"
       crossorigin="anonymous"
-    ></script> -->
+    ></script>
     <title>Menú figuras</title>
   </head>
 
-  <body class="">
-    <div class="container-fluid">
+  <body>
+    <div id="webFiguras" class="container-fluid">
       <header
-        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom border-dark border-2"
+        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-4 mb-4 border-bottom border-dark border-2"
       >
-        <div class="col-sm-12 col-md-4 text-center">
-          <a href="menuInicial.html"><h1 class="text-dark">LEGO Gestor</h1></a>
-          <!-- !QUITAR SUBRAYADO -->
+        <div div class="col-sm-12 col-md-4">
+          <a class="tituloPrincipal" href="menuInicial.html"
+            ><h1 class="text-dark ps-4">LEGO Gestor</h1></a
+          >
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div div class="col-sm-12 col-md-4">
           <ul
-            class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"
+            class="nav col-12 col-md-auto mb-2 justify-content-between mb-md-0"
           >
             <li>
-              <a href="menuSets.html" class="nav-link px-2 text-dark">SETS</a>
+              <a
+                href="menuSets.html"
+                id="botonSets"
+                class="btn btn-danger nav-link text-light px-2 fs-4"
+                >SETS</a
+              >
             </li>
             <li>
-              <a href="#" class="nav-link text-primary px-2">FIGURAS</a>
+              <a
+                href="#"
+                id="botonFiguras"
+                class="btn btn-info nav-link text-light px-2 fs-4 border-dark"
+                >FIGURAS</a
+              >
             </li>
             <li>
-              <a href="menuPiezas.html" class="nav-link text-dark px-2"
+              <a
+                href="menuPiezas.html"
+                id="botonPiezas"
+                class="btn btn-success nav-link text-light px-2 fs-4"
                 >PIEZAS</a
               >
             </li>
           </ul>
         </div>
-        <div class="col-md-3 text-end">
-          <button
-            type="button"
-            class="btn btn-warning text-white me-2 border-1 border-dark"
+        <div class="d-flex col-3 justify-content-end align-items-center pe-4">
+          <i class="fa-sharp fa-solid fa-user text-warning fs-3 p-2"></i>
+          <a
+            href="menuUsuario.html"
+            id="botonUsuario"
+            class="btn btn-lg btn-warning nav-link text-light px-2 fs-4"
+            >USUARIO</a
           >
-            Usuario
-          </button>
         </div>
       </header>
 
