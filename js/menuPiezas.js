@@ -74,6 +74,7 @@ function pulsaSiguiente(){
 
 function buscar() {
   paginaActual=1;
+  document.getElementById("error").classList.add("d-none");
   mostrarBusqueda();
   
 }
@@ -94,6 +95,10 @@ function mostrarBusqueda(){
           console.log(jsonData)
       
           totalFiguras = jsonData.results.length;
+          if(totalFiguras==0){
+            document.getElementById("error").classList.remove("d-none");
+            document.querySelector("#siguiente").classList.add("disabled");
+          }
           jsonData.results.slice((paginaActual - 1) * tamPagina, paginaActual * tamPagina).forEach((setJson) => {
               console.log("Nombre de la pieza set: " + setJson.name);
               console.log("Año de salida del set: " + setJson.year);

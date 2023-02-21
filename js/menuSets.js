@@ -44,13 +44,14 @@ function getTemas() {
 //Esta funcion es la que recibe los datos del formulario y hace la llamada a la API en consonancia
 function buscar() {
     paginaActual=1;
+    document.getElementById("error").classList.add("d-none");
     mostrarBusqueda();
     
 }
 
 function mostrarBusqueda(){
     let busqueda = document.querySelector("#buscarSets").value;
-    let anio = document.querySelector("#buscarAño").value;
+    let anio = document.querySelector("#buscarAnno").value;
     let piezas = document.querySelector("#buscarPiezas").value;
     let tema = document.querySelector("#buscarTemas").value != "" ? temas.get(document.querySelector("#buscarTemas").value) : "";
     
@@ -64,6 +65,12 @@ function mostrarBusqueda(){
             console.log(jsonData)
         
             totalFiguras = jsonData.results.length;
+
+            if(totalFiguras==0){
+                document.getElementById("error").classList.remove("d-none");
+                document.querySelector("#siguiente").classList.add("disabled");
+            }
+
             jsonData.results.slice((paginaActual - 1) * tamPagina, paginaActual * tamPagina).forEach((setJson) => {
                 console.log("Nombre del set: " + setJson.name);
                 console.log("Año de salida del set: " + setJson.year);
