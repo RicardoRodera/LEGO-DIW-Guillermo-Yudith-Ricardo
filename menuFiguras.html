@@ -83,22 +83,29 @@
       </header>
 
       <main class="container">
-        <div id="form" class="border-bottom border-dark border-2 p-5">
+        <div
+          id="formularioFiguras"
+          class="border-bottom border-dark border-2 pt-5 pb-5"
+        >
           <div class="autocompleccion col-auto">
-            <label for="firstName" class="form-label">Buscar figuras</label>
+            <label for="firstName" class="form-label fs-3 text-dark"
+              >Buscar figuras</label
+            >
             <input
               id="buscarFiguras"
               list="list-timezone"
               class="form-control mb-4"
               type="search"
-              placeholder="Busca por sets de Lego"
+              placeholder="Busca por nombre de figura"
               aria-label="Buscar"
             />
           </div>
 
           <div class="row">
             <div class="col-md-5 col-sm-6">
-              <label for="firstName" class="form-label">Tema</label>
+              <label for="firstName" class="form-label fs-5 text-dark"
+                >Tema</label
+              >
               <input
                 id="buscarTemas"
                 list="list-timezone"
@@ -110,7 +117,9 @@
             </div>
 
             <div class="col-md-5 col-sm-6">
-              <label for="firstName" class="form-label">Número de piezas</label>
+              <label for="firstName" class="form-label fs-5 text-dark"
+                >Número de piezas</label
+              >
               <input
                 id="buscarPiezas"
                 list="list-timezone"
@@ -123,7 +132,14 @@
             <div
               class="d-flex align-items-center justify-content-center pt-3 col-2 mx-auto"
             >
-              <button id="btnBuscar" type="submit" class="btn btn-info btn-lg">
+              <i
+                class="fa-sharp fa-solid fa-magnifying-glass text-info fs-3 p-3"
+              ></i>
+              <button
+                id="btnBuscar"
+                type="submit"
+                class="btn btn-outline-info fs-5"
+              >
                 Buscar
               </button>
             </div>
