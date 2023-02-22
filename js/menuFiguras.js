@@ -127,7 +127,10 @@ function mostrarBusqueda(){
 
 function actualizaPaginacion(){
   
-  if(paginaActual==1){
+  if(totalFiguras<16){
+    document.querySelector("#anterior").classList.add("disabled");
+    document.querySelector("#siguiente").classList.add("disabled");
+  }else if(paginaActual==1){
     document.querySelector("#anterior").classList.add("disabled");
     document.querySelector("#siguiente").classList.remove("disabled");
   }else if(paginaActual==Math.ceil(totalFiguras/tamPagina)){

@@ -9,6 +9,7 @@ let color = 0;
 var tamPagina = 16;
 var paginaActual = 1;
 var totalFiguras = 0;
+var search = false;
 
 //Lleno el mapa y añado los listeners
 function init() {
@@ -43,7 +44,7 @@ function getTemas() {
 
 //Esta funcion es la que recibe los datos del formulario y hace la llamada a la API en consonancia
 function buscar() {
-    paginaActual = 1;
+    paginaActual=1;
     document.getElementById("error").classList.add("d-none");
     mostrarBusqueda();
 
@@ -53,8 +54,9 @@ function mostrarBusqueda() {
     let busqueda = document.querySelector("#buscarSets").value;
     let anio = document.querySelector("#buscarAnno").value;
     let piezas = document.querySelector("#buscarPiezas").value;
+    let temaValidacion = document.querySelector("#buscarTemas").value;
     let tema = document.querySelector("#buscarTemas").value != "" ? temas.get(document.querySelector("#buscarTemas").value) : "";
-
+    
     document.getElementById("catalogo").innerHTML = "";
 
     fetch("https://rebrickable.com/api/v3/lego/sets/?search=" + busqueda + "&page_size=99999&theme_id=" + tema + "&min_year=" + anio + "&max_year=" + anio + "&min_parts=" + piezas + "&max_parts=" + piezas + "&key=" + key, { method: 'get' })
@@ -63,10 +65,10 @@ function mostrarBusqueda() {
         })
         .then(function (jsonData) {
             console.log(jsonData)
-
+        
             totalFiguras = jsonData.results.length;
 
-            if (totalFiguras == 0) {
+            if(totalFiguras==0){
                 document.getElementById("error").classList.remove("d-none");
                 document.querySelector("#siguiente").classList.add("disabled");
             }
@@ -85,18 +87,18 @@ function mostrarBusqueda() {
                                 <h5 class="card-title text-light">${setJson.name}</h5>
                                 <p class="card-text text-light">Año: ${setJson.year}</p>
                                 <p class="card-text text-light">Numero de piezas: ${setJson.num_parts}</p>
-                                <button value="${setJson.set_num}" type="button" class="btn btn-primary" onClick="guardar(this)">Guardar</button>
+                                <button type="button" class="btn btn-primary">Comprar</button>
                             </div>
                         </div>
                     </div>`;
 
-                document.getElementById('catalogo').innerHTML += tarjeta;
+                    document.getElementById('catalogo').innerHTML += tarjeta;
 
                 color++;
-                if (color == 4) {
-                    color = 0
+                if(color==4){
+                    color=0
                 };
-
+          
                 actualizaPaginacion();
             });
         })
@@ -138,12 +140,15 @@ function cierraSugerencias() {
 }
 
 
-function actualizaPaginacion() {
-
-    if (paginaActual == 1) {
+function actualizaPaginacion(){
+  
+    if(totalFiguras<16){
         document.querySelector("#anterior").classList.add("disabled");
-        document.querySelector("#siguiente").classList.remove("disabled");
-    } else if (paginaActual == Math.ceil(totalFiguras / tamPagina)) {
+        document.querySelector("#siguiente").classList.add("disabled");
+    }else if(paginaActual==1){
+      document.querySelector("#anterior").classList.add("disabled");
+      document.querySelector("#siguiente").classList.remove("disabled");
+    }else if(paginaActual==Math.ceil(totalFiguras/tamPagina)){
         document.querySelector("#siguiente").classList.add("disabled");
         document.querySelector("#anterior").classList.remove("disabled");
     } else {
