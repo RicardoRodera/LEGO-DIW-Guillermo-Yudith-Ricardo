@@ -7,6 +7,7 @@ var paginaActual = 1;
 var totalFiguras = 0;
 let color = 0;
 var search = false;
+var estoySets=false;
 
 const key = "07880df945ae318d79416922e15e7c11"
 const token = "f3de130738d80208e4f588622bcb535195ec25bf441967b0020502ea0fe91f23";
@@ -18,17 +19,19 @@ function cargarPagina() {
     document.querySelector("#botonFiltroPiezas").addEventListener("click", piezas);
     document.querySelector("#btnBuscarSets").addEventListener("click", buscarSets);
 
-    this.document.querySelector("#anterior").addEventListener("click", pulsaAnterior);
-    this.document.querySelector("#siguiente").addEventListener("click", pulsaSiguiente);
+    document.querySelector("#anterior").addEventListener("click", pulsaAnterior);
+    document.querySelector("#siguiente").addEventListener("click", pulsaSiguiente);
 }
 
 function sets() {
     document.querySelector("#formularioSets").hidden = false;
+    estoySets=true;
     buscarSets();
 }
 
 function piezas() {
     document.querySelector("#formularioSets").hidden = true;
+    estoySets=false;
     buscarPiezas()
 }
 
@@ -203,12 +206,18 @@ function comprobarImagen(valor) {
 
 function pulsaAnterior() {
     paginaActual--;
-    mostrarBusqueda();
+    mostrarBusquedaSets();
 }
 
 function pulsaSiguiente() {
-    paginaActual++;
-    mostrarBusqueda();
+    if(estoySets==true){
+        paginaActual++;
+        mostrarBusquedaSets();
+    }else{
+        paginaActual++;
+        mostrarBusquedaPiezas();
+    }
+    
 }
 
 
