@@ -1,5 +1,6 @@
 window.addEventListener("load", cargarPagina);
 const temas = new Map();
+const token = "f3de130738d80208e4f588622bcb535195ec25bf441967b0020502ea0fe91f23";
 const key = "07880df945ae318d79416922e15e7c11";
 let colores = ["rojo", "azul", "verde", "amarillo"];
 let color = 0;
@@ -101,7 +102,7 @@ function mostrarBusqueda(){
                           <div class="card-body mt-3 ">
                               <h5 class="card-title text-light">${setJson.name}</h5>
                               <p class="card-text text-light">Numero de partes: ${setJson.num_parts}</p>
-                              <button type="button" class="btn btn-primary">Comprar</button>
+                              <button value="${setJson.set_num}" type="button" class="btn btn-primary" onClick="guardar(this)">Guardar</button>
                           </div>
                       </div>
                   </div>`;
@@ -205,4 +206,26 @@ function cierraSugerencias() {
   if (lista)
     lista.parentNode.removeChild(lista);
 
+}
+
+function guardar(e) {
+  let setNum = (e.value);
+  const opciones = {
+      method: 'post',
+      body: "set_num=" + setNum,
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          'Authorization': "key "+  key
+      },
+  }
+  fetch("https://rebrickable.com/api/v3/users/" + token + "/sets/", opciones)
+      .then(function (respuesta) {
+          return respuesta.json()
+      })
+      .then(function (jsonData) {
+          //llega tras conseguir hacer el post
+      })
+      .catch(function (ex) {
+          console.error('Error', ex.message)
+      })
 }
