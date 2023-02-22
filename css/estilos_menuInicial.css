@@ -39,7 +39,4 @@ body #menuInicial #menuPiezas {
 body #menuInicial #menuUsuario {
   background-image: url("../Imagenes/montonamarillo.jpg");
   background-size: cover;
-  /*@media (max-width: 768px) {
-    height: 18.3vh !important;
-  }*/
 }
