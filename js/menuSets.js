@@ -3,10 +3,11 @@ const key = "07880df945ae318d79416922e15e7c11"
 //Creo un mapa en el que guardaré los temas de los distintos sets para mostrar las sugerencias
 const temas = new Map();
 const colores = ["rojo", "azul", "verde", "amarillo"];
-let color=0;
+const token = "f3de130738d80208e4f588622bcb535195ec25bf441967b0020502ea0fe91f23";
+let color = 0;
 
-var tamPagina=16;
-var paginaActual=1;
+var tamPagina = 16;
+var paginaActual = 1;
 var totalFiguras = 0;
 
 //Lleno el mapa y añado los listeners
@@ -14,10 +15,9 @@ function init() {
     document.getElementById("btnBuscar").addEventListener("click", buscar);
     document.getElementById("buscarTemas").addEventListener("input", autocompletar);
     getTemas();
-    
     buscar();
-    this.document.querySelector("#anterior").addEventListener("click",pulsaAnterior);
-    this.document.querySelector("#siguiente").addEventListener("click",pulsaSiguiente);
+    this.document.querySelector("#anterior").addEventListener("click", pulsaAnterior);
+    this.document.querySelector("#siguiente").addEventListener("click", pulsaSiguiente);
 
 }
 
@@ -43,18 +43,18 @@ function getTemas() {
 
 //Esta funcion es la que recibe los datos del formulario y hace la llamada a la API en consonancia
 function buscar() {
-    paginaActual=1;
+    paginaActual = 1;
     document.getElementById("error").classList.add("d-none");
     mostrarBusqueda();
-    
+
 }
 
-function mostrarBusqueda(){
+function mostrarBusqueda() {
     let busqueda = document.querySelector("#buscarSets").value;
     let anio = document.querySelector("#buscarAnno").value;
     let piezas = document.querySelector("#buscarPiezas").value;
     let tema = document.querySelector("#buscarTemas").value != "" ? temas.get(document.querySelector("#buscarTemas").value) : "";
-    
+
     document.getElementById("catalogo").innerHTML = "";
 
     fetch("https://rebrickable.com/api/v3/lego/sets/?search=" + busqueda + "&page_size=99999&theme_id=" + tema + "&min_year=" + anio + "&max_year=" + anio + "&min_parts=" + piezas + "&max_parts=" + piezas + "&key=" + key, { method: 'get' })
@@ -63,10 +63,10 @@ function mostrarBusqueda(){
         })
         .then(function (jsonData) {
             console.log(jsonData)
-        
+
             totalFiguras = jsonData.results.length;
 
-            if(totalFiguras==0){
+            if (totalFiguras == 0) {
                 document.getElementById("error").classList.remove("d-none");
                 document.querySelector("#siguiente").classList.add("disabled");
             }
@@ -85,7 +85,7 @@ function mostrarBusqueda(){
                                 <h5 class="card-title text-light">${setJson.name}</h5>
                                 <p class="card-text text-light">Año: ${setJson.year}</p>
                                 <p class="card-text text-light">Numero de piezas: ${setJson.num_parts}</p>
-                                <button type="button" class="btn btn-primary">Comprar</button>
+                                <button value="${setJson.set_num}" type="button" class="btn btn-primary" onClick="guardar(this)">Guardar</button>
                             </div>
                         </div>
                     </div>`;
@@ -93,10 +93,10 @@ function mostrarBusqueda(){
                 document.getElementById('catalogo').innerHTML += tarjeta;
 
                 color++;
-                if(color==4){
-                    color=0
+                if (color == 4) {
+                    color = 0
                 };
-          
+
                 actualizaPaginacion();
             });
         })
@@ -138,40 +138,61 @@ function cierraSugerencias() {
 }
 
 
-function actualizaPaginacion(){
-  
-    if(paginaActual==1){
-      document.querySelector("#anterior").classList.add("disabled");
-      document.querySelector("#siguiente").classList.remove("disabled");
-    }else if(paginaActual==Math.ceil(totalFiguras/tamPagina)){
+function actualizaPaginacion() {
+
+    if (paginaActual == 1) {
+        document.querySelector("#anterior").classList.add("disabled");
+        document.querySelector("#siguiente").classList.remove("disabled");
+    } else if (paginaActual == Math.ceil(totalFiguras / tamPagina)) {
         document.querySelector("#siguiente").classList.add("disabled");
         document.querySelector("#anterior").classList.remove("disabled");
-    }else{
+    } else {
         document.querySelector("#anterior").classList.remove("disabled");
         document.querySelector("#siguiente").classList.remove("disabled");
     }
-  }
-  
+}
 
-function comprobarImagen(valor){
-    if(valor!=null){
-      return  `<img src="`+valor+`" class="card-img-top">`;
-    }else{
-      return  `<img src="../Imagenes/piezasLego.jpg" class="card-img-top">`;
+
+function comprobarImagen(valor) {
+    if (valor != null) {
+        return `<img src="` + valor + `" class="card-img-top">`;
+    } else {
+        return `<img src="../Imagenes/piezasLego.jpg" class="card-img-top">`;
     }
 }
 
 
 
-function pulsaAnterior(){
+function pulsaAnterior() {
     paginaActual--;
     mostrarBusqueda();
 }
-   
-function pulsaSiguiente(){
+
+function pulsaSiguiente() {
     paginaActual++;
     mostrarBusqueda();
 }
 
+function guardar(e) {
+    let setNum = (e.value);
+    const opciones = {
+        method: 'post',
+        body: "set_num=" + setNum,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Authorization': "key "+  key
+        },
+    }
+    fetch("https://rebrickable.com/api/v3/users/" + token + "/sets/", opciones)
+        .then(function (respuesta) {
+            return respuesta.json()
+        })
+        .then(function (jsonData) {
+            console.log("Exito");
+        })
+        .catch(function (ex) {
+            console.error('Error', ex.message)
+        })
+}
 
 
