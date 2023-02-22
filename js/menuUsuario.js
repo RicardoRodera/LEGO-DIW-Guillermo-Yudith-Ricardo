@@ -6,6 +6,7 @@ var tamPagina = 16;
 var paginaActual = 1;
 var totalFiguras = 0;
 let color = 0;
+var search = false;
 
 const key = "07880df945ae318d79416922e15e7c11"
 const token = "f3de130738d80208e4f588622bcb535195ec25bf441967b0020502ea0fe91f23";
@@ -33,6 +34,7 @@ function piezas() {
 
 function buscarSets() {
     paginaActual = 1;
+    search = true;
     document.getElementById("error").classList.add("d-none");
     mostrarBusquedaSets();
 
@@ -49,53 +51,52 @@ function mostrarBusquedaSets() {
     let busqueda = document.querySelector("#buscarSets").value;
     let anio = document.querySelector("#buscarAnno").value;
     let piezas = document.querySelector("#buscarPiezas").value;
+    let temaValidacion = document.querySelector("#buscarTemas").value;
     let tema = document.querySelector("#buscarTemas").value != "" ? temas.get(document.querySelector("#buscarTemas").value) : "";
+    let existeError = detectorErrores(1,temaValidacion, piezas,anio);
 
     document.getElementById("catalogo").innerHTML = "";
+    if(existeError==false){
+        fetch("https://rebrickable.com/api/v3/users/f3de130738d80208e4f588622bcb535195ec25bf441967b0020502ea0fe91f23/sets/?key=07880df945ae318d79416922e15e7c11&min_year=" + anio + "&max_year=" + anio + "&min_parts=" + piezas + "&max_parts=" + piezas + "&search=" + busqueda + "&theme_id=" + tema, { methid: "get" })
+            .then(function (respuesta) {
+                return respuesta.json()
+            })
+            .then(function (jsonData) {
+                console.log(jsonData)
 
-    fetch("https://rebrickable.com/api/v3/users/f3de130738d80208e4f588622bcb535195ec25bf441967b0020502ea0fe91f23/sets/?key=07880df945ae318d79416922e15e7c11&min_year=" + anio + "&max_year=" + anio + "&min_parts=" + piezas + "&max_parts=" + piezas + "&search=" + busqueda + "&theme_id=" + tema, { methid: "get" })
-        .then(function (respuesta) {
-            return respuesta.json()
-        })
-        .then(function (jsonData) {
-            console.log(jsonData)
+                totalFiguras = jsonData.results.length;
+                detectorErrores(totalFiguras,temaValidacion, piezas,anio);
 
-            totalFiguras = jsonData.results.length;
-
-            if (totalFiguras == 0) {
-                document.getElementById("error").classList.remove("d-none");
-                document.querySelector("#siguiente").classList.add("disabled");
-            }
-
-            jsonData.results.slice((paginaActual - 1) * tamPagina, paginaActual * tamPagina).forEach((setJson) => {
-                let tarjeta = `
-                    <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center pb-5 pt-5">
-                        <div class="card ${colores[color]} border border-light rounded" style="width: 18em;">
-                            <div class="bg-light contenedorImagen">
-                                ${comprobarImagen(setJson.set.set_img_url)}
+                jsonData.results.slice((paginaActual - 1) * tamPagina, paginaActual * tamPagina).forEach((setJson) => {
+                    let tarjeta = `
+                        <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center pb-5 pt-5">
+                            <div class="card ${colores[color]} border border-light rounded" style="width: 18em;">
+                                <div class="bg-light contenedorImagen">
+                                    ${comprobarImagen(setJson.set.set_img_url)}
+                                </div>
+                                <div class="card-body mt-3">
+                                    <h5 class="card-title text-light">${setJson.set.name}</h5>
+                                    <p class="card-text text-light">Año: ${setJson.set.year}</p>
+                                    <p class="card-text text-light">Numero de piezas: ${setJson.set.num_parts}</p>
+                                    <button value="${setJson.set.set_num}" type="button" class="btn btn-danger" onClick="eliminarSet(this)">Eliminar</button>
+                                </div>
                             </div>
-                            <div class="card-body mt-3">
-                                <h5 class="card-title text-light">${setJson.set.name}</h5>
-                                <p class="card-text text-light">Año: ${setJson.set.year}</p>
-                                <p class="card-text text-light">Numero de piezas: ${setJson.set.num_parts}</p>
-                                <button value="${setJson.set.set_num}" type="button" class="btn btn-danger" onClick="eliminarSet(this)">Eliminar</button>
-                            </div>
-                        </div>
-                    </div>`;
+                        </div>`;
 
-                document.getElementById('catalogo').innerHTML += tarjeta;
+                    document.getElementById('catalogo').innerHTML += tarjeta;
 
-                color++;
-                if (color == 4) {
-                    color = 0
-                };
+                    color++;
+                    if (color == 4) {
+                        color = 0
+                    };
 
-                actualizaPaginacion();
-            });
-        })
-        .catch(function (ex) {
-            console.error('Error', ex.message)
-        })
+                    actualizaPaginacion();
+                });
+            })
+            .catch(function (ex) {
+                console.error('Error', ex.message)
+            })
+    }
 }
 
 
@@ -148,7 +149,10 @@ function mostrarBusquedaPiezas() {
 
 function actualizaPaginacion() {
 
-    if (paginaActual == 1) {
+    if(totalFiguras<16){
+        document.querySelector("#anterior").classList.add("disabled");
+        document.querySelector("#siguiente").classList.add("disabled");
+    }else if(paginaActual==1){
         document.querySelector("#anterior").classList.add("disabled");
         document.querySelector("#siguiente").classList.remove("disabled");
     } else if (paginaActual == Math.ceil(totalFiguras / tamPagina)) {
@@ -160,6 +164,34 @@ function actualizaPaginacion() {
     }
 }
 
+function detectorErrores(totalFiguras,temaValidacion,piezas,anio){
+    const num = parseFloat(piezas);
+    const anioVal = parseFloat(anio);
+
+   if(totalFiguras==0){ 
+     document.getElementById("error").classList.remove("d-none");
+     document.getElementById("error").innerHTML="No se han encontrado resultados";
+     document.querySelector("#siguiente").classList.add("disabled");
+     return true;
+   }else if(!(temas.has(temaValidacion)) && search==true && temaValidacion!=""){
+     document.getElementById("error").classList.remove("d-none");
+     document.getElementById("error").innerHTML="No existe ese tema";
+     document.querySelector("#siguiente").classList.add("disabled");
+     return true;
+   }else if((isNaN(num)) && search==true && piezas!=""){
+     document.getElementById("error").classList.remove("d-none");
+     document.getElementById("error").innerHTML="El numero de piezas no es un numero";
+     document.querySelector("#siguiente").classList.add("disabled");
+     return true;
+   }else if((isNaN(anioVal)) && search==true && anio!=""){
+    document.getElementById("error").classList.remove("d-none");
+    document.getElementById("error").innerHTML="El año no es un numero";
+    document.querySelector("#siguiente").classList.add("disabled");
+    return true;
+   }
+ 
+   return false;
+ }
 
 function comprobarImagen(valor) {
     if (valor != null) {
