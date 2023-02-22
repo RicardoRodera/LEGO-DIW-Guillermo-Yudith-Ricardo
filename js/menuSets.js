@@ -86,7 +86,7 @@ function mostrarBusqueda() {
                                     <h5 class="card-title text-light">${setJson.name}</h5>
                                     <p class="card-text text-light">Año: ${setJson.year}</p>
                                     <p class="card-text text-light">Numero de piezas: ${setJson.num_parts}</p>
-                                    <button type="button" class="btn btn-primary">Comprar</button>
+                                    <button value="${setJson.set_num}" type="button" class="btn btn-primary" onClick="guardar(this)">Guardar</button>
                                 </div>
                             </div>
                         </div>`;
