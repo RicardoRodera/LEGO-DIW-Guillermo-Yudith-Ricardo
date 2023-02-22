@@ -8,12 +8,13 @@ var tamPagina = 16;
 var paginaActual = 1;
 var totalFiguras = 0;
 
+
 function cargarPagina() {
   document.getElementById("btnBuscar").addEventListener("click", buscar);
   document.getElementById("buscarTemas").addEventListener("input", autocompletar);
   getTemas();
 
-  buscar();
+  mostrarBusqueda();
   this.document.querySelector("#anterior").addEventListener("click", pulsaAnterior);
   this.document.querySelector("#siguiente").addEventListener("click", pulsaSiguiente);
 }
@@ -21,6 +22,7 @@ function cargarPagina() {
 
 function buscar() {
   paginaActual=1;
+ 
   document.getElementById("error").classList.add("d-none");
   mostrarBusqueda();
   
@@ -85,10 +87,8 @@ function mostrarBusqueda(){
           console.log(jsonData)
       
           totalFiguras = jsonData.results.length;
-          if(totalFiguras==0){
-            document.getElementById("error").classList.remove("d-none");
-            document.querySelector("#siguiente").classList.add("disabled");
-          }
+          detectorErrores(totalFiguras,tema);
+
           jsonData.results.slice((paginaActual - 1) * tamPagina, paginaActual * tamPagina).forEach((setJson) => {
               
               let tarjeta = `
@@ -113,6 +113,7 @@ function mostrarBusqueda(){
               };
         
               actualizaPaginacion();
+          
           });
       })
       .catch(function (ex) {
@@ -131,6 +132,18 @@ function actualizaPaginacion(){
   }else{
       document.querySelector("#anterior").classList.remove("disabled");
       document.querySelector("#siguiente").classList.remove("disabled");
+  }
+}
+
+function detectorErrores(totalFiguras,tema){
+  
+
+  if(totalFiguras==0){
+    document.getElementById("error").classList.remove("d-none");
+    document.querySelector("#siguiente").classList.add("disabled");
+  }else if(!(temas.has(tema))){
+    document.getElementById("error").classList.remove("d-none");
+    document.querySelector("#siguiente").classList.add("disabled");
   }
 }
 
