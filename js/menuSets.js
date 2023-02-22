@@ -15,10 +15,14 @@ var search = false;
 function init() {
     document.getElementById("btnBuscar").addEventListener("click", buscar);
     document.getElementById("buscarTemas").addEventListener("input", autocompletar);
-    getTemas();
-    buscar();
-    this.document.querySelector("#anterior").addEventListener("click", pulsaAnterior);
-    this.document.querySelector("#siguiente").addEventListener("click", pulsaSiguiente);
+    document.querySelector("#anterior").addEventListener("click", pulsaAnterior);
+    document.querySelector("#siguiente").addEventListener("click", pulsaSiguiente);
+
+    setTimeout(() => {
+        document.getElementById("spinner").hidden = true;
+        getTemas();
+        buscar();
+    }, 300);
 
 }
 
@@ -44,7 +48,7 @@ function getTemas() {
 
 //Esta funcion es la que recibe los datos del formulario y hace la llamada a la API en consonancia
 function buscar() {
-    paginaActual=1;
+    paginaActual = 1;
     document.getElementById("error").classList.add("d-none");
     mostrarBusqueda();
 
@@ -56,7 +60,7 @@ function mostrarBusqueda() {
     let piezas = document.querySelector("#buscarPiezas").value;
     let temaValidacion = document.querySelector("#buscarTemas").value;
     let tema = document.querySelector("#buscarTemas").value != "" ? temas.get(document.querySelector("#buscarTemas").value) : "";
-    
+
     document.getElementById("catalogo").innerHTML = "";
 
     fetch("https://rebrickable.com/api/v3/lego/sets/?search=" + busqueda + "&page_size=99999&theme_id=" + tema + "&min_year=" + anio + "&max_year=" + anio + "&min_parts=" + piezas + "&max_parts=" + piezas + "&key=" + key, { method: 'get' })
@@ -65,10 +69,10 @@ function mostrarBusqueda() {
         })
         .then(function (jsonData) {
             console.log(jsonData)
-        
+
             totalFiguras = jsonData.results.length;
 
-            if(totalFiguras==0){
+            if (totalFiguras == 0) {
                 document.getElementById("error").classList.remove("d-none");
                 document.querySelector("#siguiente").classList.add("disabled");
             }
@@ -92,13 +96,13 @@ function mostrarBusqueda() {
                         </div>
                     </div>`;
 
-                    document.getElementById('catalogo').innerHTML += tarjeta;
+                document.getElementById('catalogo').innerHTML += tarjeta;
 
                 color++;
-                if(color==4){
-                    color=0
+                if (color == 4) {
+                    color = 0
                 };
-          
+
                 actualizaPaginacion();
             });
         })
@@ -140,15 +144,15 @@ function cierraSugerencias() {
 }
 
 
-function actualizaPaginacion(){
-  
-    if(totalFiguras<16){
+function actualizaPaginacion() {
+
+    if (totalFiguras < 16) {
         document.querySelector("#anterior").classList.add("disabled");
         document.querySelector("#siguiente").classList.add("disabled");
-    }else if(paginaActual==1){
-      document.querySelector("#anterior").classList.add("disabled");
-      document.querySelector("#siguiente").classList.remove("disabled");
-    }else if(paginaActual==Math.ceil(totalFiguras/tamPagina)){
+    } else if (paginaActual == 1) {
+        document.querySelector("#anterior").classList.add("disabled");
+        document.querySelector("#siguiente").classList.remove("disabled");
+    } else if (paginaActual == Math.ceil(totalFiguras / tamPagina)) {
         document.querySelector("#siguiente").classList.add("disabled");
         document.querySelector("#anterior").classList.remove("disabled");
     } else {
@@ -185,7 +189,7 @@ function guardar(e) {
         body: "set_num=" + setNum,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'Authorization': "key "+  key
+            'Authorization': "key " + key
         },
     }
     fetch("https://rebrickable.com/api/v3/users/" + token + "/sets/", opciones)
