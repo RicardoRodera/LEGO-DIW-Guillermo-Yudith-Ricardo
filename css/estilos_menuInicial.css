@@ -2,56 +2,44 @@
   font-family: "Lego";
   src: url("../Tipografia/Legothick.ttf");
 }
-body,
-div {
+body {
+  background-color: #f5f2b1;
+}
+body div {
   background-color: transparent !important;
   font-family: "Lego", sans-serif;
 }
-
-.container {
-  margin-top: 5rem;
-  width: 100%;
+body .container {
+  margin-top: auto;
 }
-
-.fs-1 {
+body .fs-1 {
   font-size: 5rem !important;
 }
-
-@media (max-width: 768px) {
-  #menuInicial div.columna-izquierda {
-    margin-bottom: -19.3vh;
-  }
+body #menuInicial div.caja-menu {
+  border: 5px solid #f5f2b1;
 }
-#menuInicial div.caja-menu {
-  border: 5px solid white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#menuInicial div.caja-menu:hover {
+body #menuInicial div.caja-menu:hover {
   border-color: black;
 }
-#menuInicial div.caja-menu a {
+body #menuInicial div.caja-menu a {
   text-decoration: none;
 }
-#menuInicial #menuSets {
+body #menuInicial #menuSets {
   background-image: url("../Imagenes/monton rojo.webp");
   background-size: cover;
 }
-#menuInicial #menuFiguras {
+body #menuInicial #menuFiguras {
   background-image: url("../Imagenes/montonazul.jpg");
   background-size: cover;
 }
-#menuInicial #menuPiezas {
+body #menuInicial #menuPiezas {
   background-image: url("../Imagenes/montonVerde.jpg");
   background-size: cover;
 }
-#menuInicial #menuUsuario {
+body #menuInicial #menuUsuario {
   background-image: url("../Imagenes/montonamarillo.jpg");
   background-size: cover;
-}
-@media (max-width: 768px) {
-  #menuInicial #menuUsuario {
+  /*@media (max-width: 768px) {
     height: 18.3vh !important;
-  }
+  }*/
 }
