@@ -52,7 +52,7 @@ function mostrarBusquedaSets() {
 
     document.getElementById("catalogo").innerHTML = "";
 
-    fetch("https://rebrickable.com/api/v3/users/f3de130738d80208e4f588622bcb535195ec25bf441967b0020502ea0fe91f23/sets/?key=07880df945ae318d79416922e15e7c11&min_year=" + anio + "&max_year=" + anio + "&min_parts=" + piezas + "&max_parts=" + piezas + "&search=" + busqueda + "&theme_id=" + tema, {methid:"get"})
+    fetch("https://rebrickable.com/api/v3/users/f3de130738d80208e4f588622bcb535195ec25bf441967b0020502ea0fe91f23/sets/?key=07880df945ae318d79416922e15e7c11&min_year=" + anio + "&max_year=" + anio + "&min_parts=" + piezas + "&max_parts=" + piezas + "&search=" + busqueda + "&theme_id=" + tema, { methid: "get" })
         .then(function (respuesta) {
             return respuesta.json()
         })
@@ -77,7 +77,7 @@ function mostrarBusquedaSets() {
                                 <h5 class="card-title text-light">${setJson.set.name}</h5>
                                 <p class="card-text text-light">Año: ${setJson.set.year}</p>
                                 <p class="card-text text-light">Numero de piezas: ${setJson.set.num_parts}</p>
-                                <button value="${setJson.set.set_num}" type="button" class="btn btn-danger" onClick="guardar(this)">Eliminar</button>
+                                <button value="${setJson.set.set_num}" type="button" class="btn btn-danger" onClick="eliminarSet(this)">Eliminar</button>
                             </div>
                         </div>
                     </div>`;
@@ -125,7 +125,7 @@ function mostrarBusquedaPiezas() {
                     <div class="card-body mt-3 ">
                         <h5 class="card-title text-light">${setJson.part.name}</h5>
                         <p class="card-text text-light">Codigo: ${setJson.part.part_num}</p>
-                        <button value="${setJson.part.part_num}" type="button" class="btn btn-danger" onClick="guardar(this)">Eliminar</button>
+                        <button value="${setJson.part.part_num}" type="button" class="btn btn-danger" onClick="eliminarPieza(this)">Eliminar</button>
                     </div>
                 </div>
             </div>`;
@@ -220,6 +220,26 @@ function getTemas() {
             for (let i = 0; i < results.length; i++) {
                 temas.set(results[i].name, results[i].id);
             }
+        })
+        .catch(function (ex) {
+            console.error('Error', ex.message)
+        })
+}
+
+function eliminarSet(e) {
+    let setNum = (e.value);
+    const opciones = {
+        method: 'DELETE',
+        body: "set_num=" + setNum,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Authorization': "key " + key
+        },
+    }
+    fetch("https://rebrickable.com/api/v3/users/" + token + "/sets/" + setNum + "/", opciones)
+        .then(function (respuesta) {
+            mostrarBusquedaSets();
+            return respuesta.json()
         })
         .catch(function (ex) {
             console.error('Error', ex.message)
