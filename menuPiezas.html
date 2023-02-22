@@ -43,9 +43,9 @@
             ><h1 class="text-dark ps-4">LEGO Gestor</h1></a
           >
         </div>
-        <div div class="col-lg-4 col-md-9 col-sm-9">
+        <div div class="col-lg-4 col-md-9 col-9">
           <ul
-            class="nav col-12 col-md-auto mb-2 justify-content-lg-between justify-content-md-around justify-content-sm-evenly mb-md-0"
+            class="nav col-12 col-md-auto mb-2 justify-content-lg-between justify-content-md-around justify-content-around mb-md-0"
           >
             <li>
               <a
@@ -73,7 +73,8 @@
             </li>
           </ul>
         </div>
-        <div class="d-flex col-lg-3 col-md-3 col-sm-3 justify-content-sm-center justify-content-lg-end align-items-center pe-4">
+
+        <div class="d-flex col-lg-3 col-md-3 col-12 justify-content-center justify-content-lg-end align-items-center pe-4">
           <i class="fa-sharp fa-solid fa-user text-warning fs-3 p-2"></i>
           <a
             href="menuUsuario.html"
@@ -86,23 +87,23 @@
 
       <main class="container">
         <div id="formularioPiezas" class="pt-5 pb-5">
-          <div class="autocompleccion col-auto">
-            <label for="firstName" class="form-label fs-3 text-dark"
-              >Buscar piezas</label
-            >
-            <input
-              id="buscarPiezas"
-              list="list-timezone"
-              class="form-control mb-4"
-              type="search"
-              placeholder="Busca por nombre de pieza"
-              aria-label="Buscar"
-            />
-          </div>
-
           <div class="row">
-            <div class="col-md-5 col-sm-6">
-              <label for="firstName" class="form-label fs-5 text-dark"
+            <div class="autocompleccion col-auto col-md-5 col-12">
+              <label for="firstName" class="form-label fs-3 text-dark"
+                >Buscar piezas</label
+              >
+              <input
+                id="buscarPiezas"
+                list="list-timezone"
+                class="form-control mb-4"
+                type="search"
+                placeholder="Busca por nombre de pieza"
+                aria-label="Buscar"
+              />
+            </div>
+
+            <div class="col-md-5 col-12">
+              <label for="firstName" class="form-label fs-3 text-dark"
                 >Código</label
               >
               <input
@@ -115,21 +116,8 @@
               />
             </div>
 
-            <div class="col-md-5 col-sm-6">
-              <label for="firstName" class="form-label fs-5 text-dark"
-                >Color</label
-              >
-              <input
-                id="colorPieza"
-                list="list-timezone"
-                class="form-control mb-3"
-                type="search"
-                placeholder="Busca por color de la pieza"
-                aria-label="Buscar"
-              />
-            </div>
             <div
-              class="d-flex align-items-center justify-content-center pt-3 col-2 mx-auto"
+              class="d-flex align-items-center justify-content-center pt-4 col-2 mx-auto"
             >
               <i
                 class="fa-sharp fa-solid fa-magnifying-glass text-info fs-3 p-3"
@@ -144,6 +132,7 @@
             </div>
           </div>
         </div>
+        
 
         <div id="error" class="d-none alert alert-danger">
           No se han encontrado resultados
