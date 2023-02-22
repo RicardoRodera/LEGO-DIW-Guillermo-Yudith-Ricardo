@@ -62,14 +62,12 @@ function buscar() {
 }
 
 function mostrarBusqueda(){
-  let busqueda = document.querySelector("#buscarPiezas").value;
+  
   let codPieza = document.querySelector("#buscarCodigo").value;
-  let colorPieza = document.querySelector("#colorPieza").value;
-
-
+  
   document.getElementById("catalogo").innerHTML = "";
 
-  fetch("https://rebrickable.com/api/v3/lego/parts/?search=" + busqueda + "&page_size=99999&part_num= " + codPieza + "&key=" + key, { method: 'get' })
+  fetch("https://rebrickable.com/api/v3/lego/parts/?&part_num= " + codPieza + "&key=" + key, { method: 'get' })
       .then(function (respuesta) {
           return respuesta.json()
       })
