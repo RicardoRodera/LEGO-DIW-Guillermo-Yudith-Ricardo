@@ -62,12 +62,12 @@ function buscar() {
 }
 
 function mostrarBusqueda(){
-  
+  let busqueda = document.querySelector("#buscarPiezas").value;
   let codPieza = document.querySelector("#buscarCodigo").value;
   
   document.getElementById("catalogo").innerHTML = "";
 
-  fetch("https://rebrickable.com/api/v3/lego/parts/?&part_num= " + codPieza + "&key=" + key, { method: 'get' })
+  fetch("https://rebrickable.com/api/v3/lego/parts/?search=" + busqueda +"&part_num= " + codPieza + "&key=" + key, { method: 'get' })
       .then(function (respuesta) {
           return respuesta.json()
       })
@@ -80,7 +80,7 @@ function mostrarBusqueda(){
             document.getElementById("error").classList.remove("d-none");
             document.querySelector("#siguiente").classList.add("disabled");
           }
-          
+
           jsonData.results.slice((paginaActual - 1) * tamPagina, paginaActual * tamPagina).forEach((setJson) => {
               console.log("Nombre de la pieza set: " + setJson.name);
               console.log("Año de salida del set: " + setJson.year);
