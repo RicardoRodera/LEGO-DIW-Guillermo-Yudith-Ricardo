@@ -13,20 +13,23 @@ var search = false;
 function cargarPagina() {
   document.getElementById("btnBuscar").addEventListener("click", buscar);
   document.getElementById("buscarTemas").addEventListener("input", autocompletar);
-  getTemas();
+  document.querySelector("#anterior").addEventListener("click", pulsaAnterior);
+  document.querySelector("#siguiente").addEventListener("click", pulsaSiguiente);
 
-  mostrarBusqueda();
-  this.document.querySelector("#anterior").addEventListener("click", pulsaAnterior);
-  this.document.querySelector("#siguiente").addEventListener("click", pulsaSiguiente);
+  setTimeout(() => {
+    document.getElementById("spinner").hidden = true;
+    getTemas();
+    mostrarBusqueda();
+  }, 300)
 }
 //comentario para hacer pruebas muy serias
 
 function buscar() {
-  paginaActual=1;
+  paginaActual = 1;
   search = true;
   document.getElementById("error").classList.add("d-none");
   mostrarBusqueda();
-  
+
 }
 
 function getSetsBusqueda(busqueda = "") {
@@ -72,28 +75,28 @@ function getTemas() {
     })
 }
 
-function mostrarBusqueda(){
+function mostrarBusqueda() {
   let busqueda = document.querySelector("#buscarFiguras").value;
   let piezas = document.querySelector("#buscarPiezas").value;
   let temaValidacion = document.querySelector("#buscarTemas").value
   let tema = document.querySelector("#buscarTemas").value != "" ? temas.get(document.querySelector("#buscarTemas").value) : "";
-  let existeError = detectorErrores(1,temaValidacion, piezas);
-  
+  let existeError = detectorErrores(1, temaValidacion, piezas);
+
   document.getElementById("catalogo").innerHTML = "";
-  if(existeError==false){
-    fetch("https://rebrickable.com/api/v3/lego/minifigs/?search=" + busqueda + "&page_size=99999&in_theme_id=" + tema +  "&min_parts=" + piezas + "&max_parts=" + piezas + "&key=" + key, { method: 'get' })
+  if (existeError == false) {
+    fetch("https://rebrickable.com/api/v3/lego/minifigs/?search=" + busqueda + "&page_size=99999&in_theme_id=" + tema + "&min_parts=" + piezas + "&max_parts=" + piezas + "&key=" + key, { method: 'get' })
       .then(function (respuesta) {
-          return respuesta.json()
+        return respuesta.json()
       })
       .then(function (jsonData) {
-          console.log(jsonData)
-      
-          totalFiguras = jsonData.results.length;
-          detectorErrores(totalFiguras,temaValidacion, piezas);
+        console.log(jsonData)
 
-          jsonData.results.slice((paginaActual - 1) * tamPagina, paginaActual * tamPagina).forEach((setJson) => {
-              
-              let tarjeta = `
+        totalFiguras = jsonData.results.length;
+        detectorErrores(totalFiguras, temaValidacion, piezas);
+
+        jsonData.results.slice((paginaActual - 1) * tamPagina, paginaActual * tamPagina).forEach((setJson) => {
+
+          let tarjeta = `
                   <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center pb-5 pt-5">
                       <div class="card ${colores[color]} border border-light rounded" style="width: 18em;">
                           <div class="bg-light contenedorImagen">
@@ -107,57 +110,57 @@ function mostrarBusqueda(){
                       </div>
                   </div>`;
 
-              document.getElementById('catalogo').innerHTML += tarjeta;
+          document.getElementById('catalogo').innerHTML += tarjeta;
 
-              color++;
-              if(color==4){
-                  color=0
-              };
-        
-              actualizaPaginacion();
-          
-          });
+          color++;
+          if (color == 4) {
+            color = 0
+          };
+
+          actualizaPaginacion();
+
+        });
       })
       .catch(function (ex) {
-          console.error('Error', ex.message)
+        console.error('Error', ex.message)
       })
   }
-  
+
 }
 
-function actualizaPaginacion(){
-  
-  if(totalFiguras<16){
+function actualizaPaginacion() {
+
+  if (totalFiguras < 16) {
     document.querySelector("#anterior").classList.add("disabled");
     document.querySelector("#siguiente").classList.add("disabled");
-  }else if(paginaActual==1){
+  } else if (paginaActual == 1) {
     document.querySelector("#anterior").classList.add("disabled");
     document.querySelector("#siguiente").classList.remove("disabled");
-  }else if(paginaActual==Math.ceil(totalFiguras/tamPagina)){
-      document.querySelector("#siguiente").classList.add("disabled");
-      document.querySelector("#anterior").classList.remove("disabled");
-  }else{
-      document.querySelector("#anterior").classList.remove("disabled");
-      document.querySelector("#siguiente").classList.remove("disabled");
+  } else if (paginaActual == Math.ceil(totalFiguras / tamPagina)) {
+    document.querySelector("#siguiente").classList.add("disabled");
+    document.querySelector("#anterior").classList.remove("disabled");
+  } else {
+    document.querySelector("#anterior").classList.remove("disabled");
+    document.querySelector("#siguiente").classList.remove("disabled");
   }
 }
 
-function detectorErrores(totalFiguras,temaValidacion,piezas){
-   const num = parseFloat(piezas);
+function detectorErrores(totalFiguras, temaValidacion, piezas) {
+  const num = parseFloat(piezas);
 
-  if(totalFiguras==0){ 
+  if (totalFiguras == 0) {
     document.getElementById("error").classList.remove("d-none");
-    document.getElementById("error").innerHTML="No se han encontrado resultados";
+    document.getElementById("error").innerHTML = "No se han encontrado resultados";
     document.querySelector("#siguiente").classList.add("disabled");
     return true;
-  }else if(!(temas.has(temaValidacion)) && search==true && temaValidacion!=""){
+  } else if (!(temas.has(temaValidacion)) && search == true && temaValidacion != "") {
     document.getElementById("error").classList.remove("d-none");
-    document.getElementById("error").innerHTML="No existe ese tema";
+    document.getElementById("error").innerHTML = "No existe ese tema";
     document.querySelector("#siguiente").classList.add("disabled");
     return true;
-  }else if((isNaN(num)) && search==true && piezas!=""){
+  } else if ((isNaN(num)) && search == true && piezas != "") {
     document.getElementById("error").classList.remove("d-none");
-    document.getElementById("error").innerHTML="El numero de piezas no es un numero";
+    document.getElementById("error").innerHTML = "El numero de piezas no es un numero";
     document.querySelector("#siguiente").classList.add("disabled");
     return true;
   }
@@ -166,12 +169,12 @@ function detectorErrores(totalFiguras,temaValidacion,piezas){
 }
 
 
-function pulsaAnterior(){
+function pulsaAnterior() {
   paginaActual--;
   mostrarBusqueda();
 }
- 
-function pulsaSiguiente(){
+
+function pulsaSiguiente() {
   paginaActual++;
   mostrarBusqueda();
 }
@@ -211,21 +214,21 @@ function cierraSugerencias() {
 function guardar(e) {
   let setNum = (e.value);
   const opciones = {
-      method: 'post',
-      body: "set_num=" + setNum,
-      headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          'Authorization': "key "+  key
-      },
+    method: 'post',
+    body: "set_num=" + setNum,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Authorization': "key " + key
+    },
   }
   fetch("https://rebrickable.com/api/v3/users/" + token + "/sets/", opciones)
-      .then(function (respuesta) {
-          return respuesta.json()
-      })
-      .then(function (jsonData) {
-          //llega tras conseguir hacer el post
-      })
-      .catch(function (ex) {
-          console.error('Error', ex.message)
-      })
+    .then(function (respuesta) {
+      return respuesta.json()
+    })
+    .then(function (jsonData) {
+      //llega tras conseguir hacer el post
+    })
+    .catch(function (ex) {
+      console.error('Error', ex.message)
+    })
 }

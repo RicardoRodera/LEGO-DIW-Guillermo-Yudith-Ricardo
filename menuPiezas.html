@@ -1,173 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/normalize.css" />
-    
-    <link
-      href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
-    />
-    
-    <link rel="stylesheet" href="css/tarjetas.css">
-    <link rel="icon" type="image/jpg" href="css/img/favicon/lego.ico" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Labrada"
-    />
-    <link href="Tipografia/Legothick.ttf" rel="stylesheet" type="text/css" />
-    <script
-      src="https://kit.fontawesome.com/e826ef05b7.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="css/estilos_paginas.css" />
-    <script defer src="js/menuPiezas.js"></script>
-    <title>Menú piezas</title>
-  </head>
 
-  <body>
-    <div id="webPiezas" class="container-fluid">
-      <header
-        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-4 mb-4 border-bottom border-dark border-2"
-      >
-        <div div class="col-lg-5 text-lg-start col-md-12 text-md-center col-sm-12 text-sm-center">
-          <a class="tituloPrincipal" href="menuInicial.html"
-            ><h1 class="text-dark ps-4">LEGO Gestor</h1></a
-          >
-        </div>
-        <div div class="col-lg-4 col-md-9 col-9">
-          <ul
-            class="nav col-12 col-md-auto mb-2 justify-content-lg-between justify-content-md-around justify-content-around mb-md-0"
-          >
-            <li>
-              <a
-                href="menuSets.html"
-                id="botonSets"
-                class="btn btn-danger nav-link text-light px-2 fs-4"
-                >SETS</a
-              >
-            </li>
-            <li>
-              <a
-                href="menuFiguras.html"
-                id="botonFiguras"
-                class="btn btn-info nav-link text-light px-2 fs-4"
-                >FIGURAS</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
-                id="botonPiezas"
-                class="btn btn-success nav-link text-light px-2 fs-4 border-dark"
-                >PIEZAS</a
-              >
-            </li>
-          </ul>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/normalize.css" />
 
-        <div class="d-flex col-lg-3 col-md-3 col-12 justify-content-center justify-content-lg-end align-items-center pe-4">
-          <i class="fa-sharp fa-solid fa-user text-warning fs-3 p-2"></i>
-          <a
-            href="menuUsuario.html"
-            id="botonUsuario"
-            class="btn btn-lg btn-warning nav-link text-light px-2 fs-4"
-            >USUARIO</a
-          >
-        </div>
-      </header>
+  <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
 
-      <main class="container">
-        <div id="formularioPiezas" class="pt-5 pb-5">
-          <div class="autocompleccion col-auto">
-            <label for="firstName" class="form-label fs-3 text-dark"
-              >Buscar piezas</label
-            >
-            <input
-              id="buscarPiezas"
-              list="list-timezone"
-              class="form-control mb-4"
-              type="search"
-              placeholder="Busca por nombre de pieza"
-              aria-label="Buscar"
-            />
+  <link rel="stylesheet" href="css/tarjetas.css">
+  <link rel="icon" type="image/jpg" href="css/img/favicon/lego.ico" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Labrada" />
+  <link href="Tipografia/Legothick.ttf" rel="stylesheet" type="text/css" />
+  <script src="https://kit.fontawesome.com/e826ef05b7.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/estilos_paginas.css" />
+  <script defer src="js/menuPiezas.js"></script>
+  <title>Menú piezas</title>
+</head>
+
+<body>
+  <div id="webPiezas" class="container-fluid">
+    <header
+      class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-4 mb-4 border-bottom border-dark border-2">
+      <div div class="col-lg-5 text-lg-start col-md-12 text-md-center col-sm-12 text-sm-center">
+        <a class="tituloPrincipal" href="menuInicial.html">
+          <h1 class="text-dark ps-4">LEGO Gestor</h1>
+        </a>
+      </div>
+      <div div class="col-lg-4 col-md-9 col-9">
+        <ul
+          class="nav col-12 col-md-auto mb-2 justify-content-lg-between justify-content-md-around justify-content-around mb-md-0">
+          <li>
+            <a href="menuSets.html" id="botonSets" class="btn btn-danger nav-link text-light px-2 fs-4">SETS</a>
+          </li>
+          <li>
+            <a href="menuFiguras.html" id="botonFiguras" class="btn btn-info nav-link text-light px-2 fs-4">FIGURAS</a>
+          </li>
+          <li>
+            <a href="#" id="botonPiezas" class="btn btn-success nav-link text-light px-2 fs-4 border-dark">PIEZAS</a>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="d-flex col-lg-3 col-md-3 col-12 justify-content-center justify-content-lg-end align-items-center pe-4">
+        <i class="fa-sharp fa-solid fa-user text-warning fs-3 p-2"></i>
+        <a href="menuUsuario.html" id="botonUsuario"
+          class="btn btn-lg btn-warning nav-link text-light px-2 fs-4">USUARIO</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <div id="formularioPiezas" class="pt-5 pb-5">
+        <div class="autocompleccion col-auto">
+          <label for="firstName" class="form-label fs-3 text-dark">Buscar piezas</label>
+          <input id="buscarPiezas" list="list-timezone" class="form-control mb-4" type="search"
+            placeholder="Busca por nombre de pieza" aria-label="Buscar" />
+        </div>
+        <div class="row">
+
+          <div class="col-md-10 col-12">
+            <label for="firstName" class="form-label fs-3 text-dark">Código</label>
+            <input id="buscarCodigo" list="list-timezone" class="form-control mb-3" type="search"
+              placeholder="Busca por código de pieza" aria-label="Buscar" />
           </div>
-          <div class="row">
-            
-            <div class="col-md-10 col-12">
-              <label for="firstName" class="form-label fs-3 text-dark"
-                >Código</label
-              >
-              <input
-                id="buscarCodigo"
-                list="list-timezone"
-                class="form-control mb-3"
-                type="search"
-                placeholder="Busca por código de pieza"
-                aria-label="Buscar"
-              />
-            </div>
 
-            <div
-              class="d-flex align-items-center justify-content-center pt-4 col-2 mx-auto"
-            >
-              <i
-                class="fa-sharp fa-solid fa-magnifying-glass text-info fs-3 p-3"
-              ></i>
-              <button
-                id="btnBuscar"
-                type="submit"
-                class="btn btn-outline-info fs-5"
-              >
-                Buscar
-              </button>
+          <div class="d-flex align-items-center justify-content-center pt-4 col-2 mx-auto">
+            <i class="fa-sharp fa-solid fa-magnifying-glass text-info fs-3 p-3"></i>
+            <button id="btnBuscar" type="submit" class="btn btn-outline-info fs-5">
+              Buscar
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="error" class="d-none alert alert-danger">
+        No se han encontrado resultados
+      </div>
+
+      <div id="elemento">
+        <div class="container">
+          <div class="d-flex justify-content-center">
+            <div id="spinner" class="spinner-border" role="status">
             </div>
           </div>
+          <div class="row m-3 p-5" id="catalogo"></div>
         </div>
-        
 
-        <div id="error" class="d-none alert alert-danger">
-          No se han encontrado resultados
-        </div>
-        
-        <div id="elemento" >
-          <div class="container">
-            <div class="row m-3 p-5" id="catalogo"></div>
-          </div>
-      
-          <nav id="paginacion" class="w-100">
-            <ul class="pagination pagination-lg flex-grow-1 d-flex justify-content-around">
-              <li class="page-item">
+        <nav id="paginacion" class="w-100">
+          <ul class="pagination pagination-lg flex-grow-1 d-flex justify-content-around">
+            <li class="page-item">
               <button id="anterior" class="btn rounded page-link bg-dark text-light disabled">Anterior</button>
             </li>
             <li class="page-item">
               <button id="siguiente" class="btn rounded page-link bg-dark text-light">Siguiente</button>
             </li>
-            </ul>
-          </nav>
-        </div>
-      </main>
+          </ul>
+        </nav>
+      </div>
+    </main>
 
-      <footer
-        class="border-top border-dark border-2 bg-success p-2 text-dark bg-opacity-25"
-      >
-        <div class="p-4">
-          <p class="text-center text-muted fs-5">
-            Copyright 2023 | Guillermo, Ricardo, Yudith
-          </p>
-          <p class="text-center fs-6">
-            <a href="#">Volver a arriba</a>
-          </p>
-        </div>
-      </footer>
-  </body>
+    <footer class="border-top border-dark border-2 bg-success p-2 text-dark bg-opacity-25">
+      <div class="p-4">
+        <p class="text-center text-muted fs-5">
+          Copyright 2023 | Guillermo, Ricardo, Yudith
+        </p>
+        <p class="text-center fs-6">
+          <a href="#">Volver a arriba</a>
+        </p>
+      </div>
+    </footer>
+</body>
 
 </html>

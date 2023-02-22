@@ -13,9 +13,13 @@ var totalFiguras = 0;
 
 function cargarPagina() {
   document.getElementById("btnBuscar").addEventListener("click", buscar);
-  buscar();
-  this.document.querySelector("#anterior").addEventListener("click", pulsaAnterior);
-  this.document.querySelector("#siguiente").addEventListener("click", pulsaSiguiente);
+  document.querySelector("#anterior").addEventListener("click", pulsaAnterior);
+  document.querySelector("#siguiente").addEventListener("click", pulsaSiguiente);
+
+  setTimeout(() => {
+    document.getElementById("spinner").hidden = true;
+    buscar();
+  }, 300);
 }
 
 function comprobarImagen(valor) {
@@ -26,17 +30,17 @@ function comprobarImagen(valor) {
   }
 }
 
-function actualizaPaginacion(){
-  
-  if(paginaActual==1){
+function actualizaPaginacion() {
+
+  if (paginaActual == 1) {
     document.querySelector("#anterior").classList.add("disabled");
     document.querySelector("#siguiente").classList.remove("disabled");
-  }else if(paginaActual==Math.ceil(totalFiguras/tamPagina)){
-      document.querySelector("#siguiente").classList.add("disabled");
-      document.querySelector("#anterior").classList.remove("disabled");
-  }else{
-      document.querySelector("#anterior").classList.remove("disabled");
-      document.querySelector("#siguiente").classList.remove("disabled");
+  } else if (paginaActual == Math.ceil(totalFiguras / tamPagina)) {
+    document.querySelector("#siguiente").classList.add("disabled");
+    document.querySelector("#anterior").classList.remove("disabled");
+  } else {
+    document.querySelector("#anterior").classList.remove("disabled");
+    document.querySelector("#siguiente").classList.remove("disabled");
   }
 }
 
@@ -64,7 +68,7 @@ function buscar() {
 function mostrarBusqueda(){
   let busqueda = document.querySelector("#buscarPiezas").value;
   let codPieza = document.querySelector("#buscarCodigo").value;
-  
+
   document.getElementById("catalogo").innerHTML = "";
 
   fetch("https://rebrickable.com/api/v3/lego/parts/?search=" + busqueda +"&part_num= " + codPieza + "&key=" + key, { method: 'get' })
@@ -132,22 +136,22 @@ function getColores() {
 }
 
 
-function actualizaPaginacion(){
-  if(totalFiguras<16){
+function actualizaPaginacion() {
+  if (totalFiguras < 16) {
     document.querySelector("#anterior").classList.add("disabled");
     document.querySelector("#siguiente").classList.add("disabled");
-  }else if(paginaActual==1){
+  } else if (paginaActual == 1) {
     document.querySelector("#anterior").classList.add("disabled");
     document.querySelector("#siguiente").classList.remove("disabled");
-  }else if(paginaActual==Math.ceil(totalFiguras/tamPagina)){
-      document.querySelector("#siguiente").classList.add("disabled");
-      document.querySelector("#anterior").classList.remove("disabled");
-  }else if(totalFiguras<16){
+  } else if (paginaActual == Math.ceil(totalFiguras / tamPagina)) {
     document.querySelector("#siguiente").classList.add("disabled");
     document.querySelector("#anterior").classList.remove("disabled");
-  }else{
-      document.querySelector("#anterior").classList.remove("disabled");
-      document.querySelector("#siguiente").classList.remove("disabled");
+  } else if (totalFiguras < 16) {
+    document.querySelector("#siguiente").classList.add("disabled");
+    document.querySelector("#anterior").classList.remove("disabled");
+  } else {
+    document.querySelector("#anterior").classList.remove("disabled");
+    document.querySelector("#siguiente").classList.remove("disabled");
   }
 }
 

@@ -15,10 +15,14 @@ var search = false;
 function init() {
     document.getElementById("btnBuscar").addEventListener("click", buscar);
     document.getElementById("buscarTemas").addEventListener("input", autocompletar);
-    getTemas();
-    buscar();
-    this.document.querySelector("#anterior").addEventListener("click", pulsaAnterior);
-    this.document.querySelector("#siguiente").addEventListener("click", pulsaSiguiente);
+    document.querySelector("#anterior").addEventListener("click", pulsaAnterior);
+    document.querySelector("#siguiente").addEventListener("click", pulsaSiguiente);
+
+    setTimeout(() => {
+        document.getElementById("spinner").hidden = true;
+        getTemas();
+        buscar();
+    }, 300);
 
 }
 
@@ -164,15 +168,15 @@ function cierraSugerencias() {
 }
 
 
-function actualizaPaginacion(){
-  
-    if(totalFiguras<16){
+function actualizaPaginacion() {
+
+    if (totalFiguras < 16) {
         document.querySelector("#anterior").classList.add("disabled");
         document.querySelector("#siguiente").classList.add("disabled");
-    }else if(paginaActual==1){
-      document.querySelector("#anterior").classList.add("disabled");
-      document.querySelector("#siguiente").classList.remove("disabled");
-    }else if(paginaActual==Math.ceil(totalFiguras/tamPagina)){
+    } else if (paginaActual == 1) {
+        document.querySelector("#anterior").classList.add("disabled");
+        document.querySelector("#siguiente").classList.remove("disabled");
+    } else if (paginaActual == Math.ceil(totalFiguras / tamPagina)) {
         document.querySelector("#siguiente").classList.add("disabled");
         document.querySelector("#anterior").classList.remove("disabled");
     } else {
@@ -209,7 +213,7 @@ function guardar(e) {
         body: "set_num=" + setNum,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'Authorization': "key "+  key
+            'Authorization': "key " + key
         },
     }
     fetch("https://rebrickable.com/api/v3/users/" + token + "/sets/", opciones)
