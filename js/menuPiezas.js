@@ -65,31 +65,31 @@ function buscar() {
   mostrarBusqueda();
 }
 
-function mostrarBusqueda() {
-
+function mostrarBusqueda(){
+  let busqueda = document.querySelector("#buscarPiezas").value;
   let codPieza = document.querySelector("#buscarCodigo").value;
 
   document.getElementById("catalogo").innerHTML = "";
 
-  fetch("https://rebrickable.com/api/v3/lego/parts/?&part_num= " + codPieza + "&key=" + key, { method: 'get' })
-    .then(function (respuesta) {
-      return respuesta.json()
-    })
-    .then(function (jsonData) {
-      console.log(jsonData)
+  fetch("https://rebrickable.com/api/v3/lego/parts/?search=" + busqueda +"&part_num= " + codPieza + "&key=" + key, { method: 'get' })
+      .then(function (respuesta) {
+          return respuesta.json()
+      })
+      .then(function (jsonData) {
+          console.log(jsonData)
+      
+          totalFiguras = jsonData.results.length;
 
-      totalFiguras = jsonData.results.length;
+          if(totalFiguras==0){
+            document.getElementById("error").classList.remove("d-none");
+            document.querySelector("#siguiente").classList.add("disabled");
+          }
 
-      if (totalFiguras == 0) {
-        document.getElementById("error").classList.remove("d-none");
-        document.querySelector("#siguiente").classList.add("disabled");
-      }
-
-      jsonData.results.slice((paginaActual - 1) * tamPagina, paginaActual * tamPagina).forEach((setJson) => {
-        console.log("Nombre de la pieza set: " + setJson.name);
-        console.log("Año de salida del set: " + setJson.year);
-        console.log("Imagen del set: " + setJson.set_img_url);
-        let tarjeta = `
+          jsonData.results.slice((paginaActual - 1) * tamPagina, paginaActual * tamPagina).forEach((setJson) => {
+              console.log("Nombre de la pieza set: " + setJson.name);
+              console.log("Año de salida del set: " + setJson.year);
+              console.log("Imagen del set: " + setJson.set_img_url);
+              let tarjeta = `
                   <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center pb-5 pt-5">
                       <div class="card ${colores[color]} border border-light rounded" style="width: 18em;">
                           <div class="bg-light contenedorImagen">
