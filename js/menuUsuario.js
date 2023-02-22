@@ -1,6 +1,7 @@
 window.addEventListener("load", cargarPagina);
 const temas = new Map();
 const colores = ["rojo", "azul", "verde", "amarillo"];
+const ListId = "481716";
 var tamPagina = 16;
 var paginaActual = 1;
 var totalFiguras = 0;
@@ -239,6 +240,27 @@ function eliminarSet(e) {
     fetch("https://rebrickable.com/api/v3/users/" + token + "/sets/" + setNum + "/", opciones)
         .then(function (respuesta) {
             mostrarBusquedaSets();
+            return respuesta.json()
+        })
+        .catch(function (ex) {
+            console.error('Error', ex.message)
+        })
+}
+
+function eliminarPieza(e) {
+    let partNum = (e.value);
+    const opciones = {
+        method: 'DELETE',
+        body: "set_num=" + partNum,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Authorization': "key " + key
+        },
+    }
+    fetch("https://rebrickable.com/api/v3/users/" + token + "/partlists/" + ListId + "/parts/" + partNum
+     + "/1/", opciones)
+        .then(function (respuesta) {
+            mostrarBusquedaPiezas();
             return respuesta.json()
         })
         .catch(function (ex) {
